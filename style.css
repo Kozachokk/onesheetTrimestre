@@ -1,0 +1,70 @@
+/* Custom CSS enhancements for OneSheet Trimestre */
+
+/* Canvas wrapper sizing stability */
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Subtle card hover glow */
+.kpi-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Smooth active state for tabs */
+.quarter-tab {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Custom scrollbar for modern browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.6);
+}
+
+/* Print Stylesheet for clean one-sheet reports */
+@media print {
+  header, footer, #randomizeBtn, #themeToggle, #toggleTrendType {
+    display: none !important;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt;
+  }
+
+  .kpi-card, div.bg-white, div.dark\:bg-slate-900 {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+    page-break-inside: avoid;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  canvas {
+    max-height: 250px !important;
+  }
+}
