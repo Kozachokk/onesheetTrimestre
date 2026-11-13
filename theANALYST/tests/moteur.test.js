@@ -197,6 +197,15 @@ describe('sous-compagnies (entreprises achetées)', () => {
     expect(synchronoss.prixSurRevenus).toBeCloseTo(1.78);
     expect(synchronoss.prixSurBaiia).toBeCloseTo(6.1);
   });
+  it('indique où trouver les comptes officiels de chaque entreprise achetée', () => {
+    const choix = achats.choixEntreprises('TOI');
+    expect(choix.length).toBeGreaterThan(0);
+    expect(choix.every((c) => ['edgar', 'registre', 'rien'].includes(c.type))).toBe(true);
+    const csu = achats.choixEntreprises('CSU');
+    const edgar = csu.find((c) => c.type === 'edgar');
+    expect(edgar).toBeTruthy();
+    expect(achats.lienEdgar(achats.trouverFiche(edgar.nom).cik)).toMatch(/^https:\/\/www\.sec\.gov\//);
+  });
   it('les estimations restent identifiées comme peu fiables', () => {
     const v = achats.verdict();
     expect(v.total).toBe(9);

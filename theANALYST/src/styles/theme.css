@@ -157,3 +157,10 @@ select:focus, input:focus, textarea:focus { outline: none; border-color: var(--a
 .modale-fond { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); z-index: 70; display: grid; place-items: center; padding: 1rem; animation: apparition 180ms ease both; }
 .modale { background: var(--carte); border: 1px solid var(--sarcelle); border-radius: var(--rayon); padding: 1.3rem; width: min(520px, 100%); max-height: 85vh; overflow: auto; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* Verdict du test de fiabilité des estimations (sous-compagnies) */
+.verdict-acq { border-radius: 12px; padding: 0.8rem 1rem; margin: 0.6rem 0; border: 1px solid; }
+.verdict-acq b { display: block; font-size: 1.05rem; margin-bottom: 0.2rem; }
+.verdict-acq.rouge { background: rgba(255, 135, 135, 0.1); border-color: var(--alerte); color: #ffd0d0; }
+.verdict-acq.orange { background: rgba(201, 242, 108, 0.08); border-color: var(--lime); }
+.verdict-acq.vert { background: rgba(105, 219, 124, 0.1); border-color: var(--accent); }
