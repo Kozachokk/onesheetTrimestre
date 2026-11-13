@@ -26,13 +26,13 @@ npm run build
 
 ## Mettre le site en ligne (GitHub Pages, gratuit)
 
-Le site n'a pas besoin de serveur : c'est un site statique. Le fichier `.github/workflows/publier-site.yml` le construit, lance les tests et le publie sur GitHub Pages à chaque mise à jour de la branche `main`.
+Le site n'a pas besoin de serveur : c'est un site statique. Le fichier `.github/workflows/deploy.yml` le construit, lance les tests et le publie sur GitHub Pages à chaque mise à jour de la branche `main`.
 
 1. Une seule fois, dans le dépôt GitHub : **Settings > Pages > Build and deployment > Source : « GitHub Actions »** (il faut être propriétaire ou administrateur du dépôt).
 2. Fusionner les changements dans `main` (par exemple avec le bouton « Merge pull request »).
 3. Suivre la publication dans l'onglet **Actions** du dépôt (environ 1 minute).
 
-Le site est alors accessible à tous à l'adresse `https://<compte>.github.io/<dépôt>/`, ici https://kozachokk.github.io/onesheetTrimestre/. Pour republier sans nouveau changement : onglet Actions > « Publier le site » > « Run workflow ».
+Le site est alors accessible à tous à l'adresse `https://<compte>.github.io/<dépôt>/`, ici https://kozachokk.github.io/onesheetTrimestre/. Pour republier sans nouveau changement : onglet Actions > « Deploy static content to Pages » > « Run workflow ».
 
 ## Pages
 
