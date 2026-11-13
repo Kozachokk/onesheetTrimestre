@@ -1,11 +1,11 @@
 const METRICS = [
-  { id: 'all', label: '📊 Vue d\'ensemble (CA, Marge, EBITDA, Net)' },
-  { id: 'revenue', label: '💰 Chiffre d\'affaires' },
-  { id: 'gross_margin', label: '🛡️ Marge Brute' },
-  { id: 'adjusted_ebitda', label: '⚡ EBITDA Ajusté' },
-  { id: 'net_income', label: '🎯 Résultat Net' },
-  { id: 'eps', label: '💵 BPA (EPS)' },
-  { id: 'capex', label: '🏗️ Capex' }
+  { id: 'all', label: 'Vue d\'ensemble (CA, marge, EBITDA, net)' },
+  { id: 'revenue', label: 'Chiffre d\'affaires' },
+  { id: 'gross_margin', label: 'Marge brute' },
+  { id: 'adjusted_ebitda', label: 'EBITDA ajusté' },
+  { id: 'net_income', label: 'Résultat net' },
+  { id: 'eps', label: 'BPA' },
+  { id: 'capex', label: 'Capex' }
 ];
 
 export default function MetricPills({ activeMetric, onMetricSelect }) {

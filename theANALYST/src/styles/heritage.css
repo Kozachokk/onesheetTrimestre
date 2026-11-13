@@ -1,33 +1,26 @@
+/* heritage.css : styles des composants d'origine du site (en-tête d'entreprise, cartes KPI, graphique, tableau), recolorés au thème OneSheet. */
 :root {
-  --bg-color: #0b0f19;
-  --card-bg: #111827;
-  --card-border: #1f2937;
-  --text-main: #f3f4f6;
-  --text-muted: #9ca3af;
-  --accent-blue: #38bdf8;
-  --accent-indigo: #6366f1;
-  --accent-green: #10b981;
-  --accent-red: #ef4444;
-  --accent-amber: #f59e0b;
-  --accent-purple: #a855f7;
-}
-
-body {
-  margin: 0;
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --bg-color: #000000;
+  --card-bg: #0b1111;
+  --card-border: #1f2e2e;
+  --text-main: #ffffff;
+  --text-muted: #9fb3b3;
+  --accent-blue: #69db7c;
+  --accent-indigo: #3f5959;
+  --accent-green: #69db7c;
+  --accent-red: #ff8787;
+  --accent-amber: #c9f26c;
+  --accent-purple: #7fb8b8;
 }
 
 .app-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
 }
 
 /* En-tête */
 .main-header {
-  background: linear-gradient(135deg, #111827 0%, #1e1b4b 100%);
+  background: linear-gradient(135deg, #0b1111 0%, #12201f 100%);
   border: 1px solid var(--card-border);
   border-radius: 16px;
   padding: 1.5rem;
@@ -84,15 +77,15 @@ h1 {
 }
 
 .badge-accent {
-  background: rgba(56, 189, 248, 0.15);
+  background: rgba(105, 219, 124, 0.15);
   color: var(--accent-blue);
-  border-color: rgba(56, 189, 248, 0.3);
+  border-color: rgba(105, 219, 124, 0.3);
 }
 
 .badge-subtle {
-  background: rgba(168, 85, 247, 0.15);
+  background: rgba(201, 242, 108, 0.15);
   color: var(--accent-purple);
-  border-color: rgba(168, 85, 247, 0.3);
+  border-color: rgba(201, 242, 108, 0.3);
 }
 
 .description {
@@ -253,7 +246,7 @@ h1 {
 }
 
 .pill.active {
-  background: rgba(56, 189, 248, 0.18);
+  background: rgba(105, 219, 124, 0.18);
   border-color: var(--accent-blue);
   color: var(--accent-blue);
   font-weight: 600;

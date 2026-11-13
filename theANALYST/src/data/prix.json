@@ -1,0 +1,67 @@
+{
+  "CSU": {
+    "symbole": "CSU.TO",
+    "date": "2026-11-12",
+    "source": "Yahoo Finance · CSU.TO",
+    "url": "https://finance.yahoo.com/quote/CSU.TO",
+    "rendement_6mois": 0.4185878003521111,
+    "ecart_mm200": 0.24884501103343037,
+    "volatilite": 0.43605043141791616,
+    "haut_52_semaines": 3526.52001953125,
+    "bas_52_semaines": 2254.593994140625,
+    "marge_brute": 0.37292,
+    "employes": null
+  },
+  "TOI": {
+    "symbole": "TOI.V",
+    "date": "2026-11-12",
+    "source": "Yahoo Finance · TOI.V",
+    "url": "https://finance.yahoo.com/quote/TOI.V",
+    "rendement_6mois": 0.09946897285199996,
+    "ecart_mm200": 0.03333944479644413,
+    "volatilite": 0.4180687245497503,
+    "haut_52_semaines": 132.16000366210938,
+    "bas_52_semaines": 83.7300033569336,
+    "marge_brute": 0.36265,
+    "employes": null
+  },
+  "WSP": {
+    "symbole": "WSP.TO",
+    "date": "2026-11-12",
+    "source": "Yahoo Finance · WSP.TO",
+    "url": "https://finance.yahoo.com/quote/WSP.TO",
+    "rendement_6mois": -0.04584561281345845,
+    "ecart_mm200": -0.0715992062691666,
+    "volatilite": 0.3456696076461253,
+    "haut_52_semaines": 270.57635498046875,
+    "bas_52_semaines": 160.2692413330078,
+    "marge_brute": 0.22033001,
+    "employes": 85500
+  },
+  "TFII": {
+    "symbole": "TFII.TO",
+    "date": "2026-11-12",
+    "source": "Yahoo Finance · TFII.TO",
+    "url": "https://finance.yahoo.com/quote/TFII.TO",
+    "rendement_6mois": -0.24699668099698147,
+    "ecart_mm200": -0.22983498376403455,
+    "volatilite": 0.4078265518087259,
+    "haut_52_semaines": 226.25657653808594,
+    "bas_52_semaines": 112.02278137207031,
+    "marge_brute": 0.19591999,
+    "employes": 25680
+  },
+  "ARE": {
+    "symbole": "ARE.TO",
+    "date": "2026-11-12",
+    "source": "Yahoo Finance · ARE.TO",
+    "url": "https://finance.yahoo.com/quote/ARE.TO",
+    "rendement_6mois": 0.11896368381846045,
+    "ecart_mm200": 0.20180208600560734,
+    "volatilite": 0.46136874025525315,
+    "haut_52_semaines": 59.16999816894531,
+    "bas_52_semaines": 24.949810028076172,
+    "marge_brute": 0.09463,
+    "employes": 8785
+  }
+}

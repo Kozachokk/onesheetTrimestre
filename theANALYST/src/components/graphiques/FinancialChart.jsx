@@ -1,16 +1,16 @@
 import { useEffect, useRef } from 'react';
 import ChartControls from './ChartControls';
 import MetricPills from './MetricPills';
-import { formatMoney } from '../utils/formatters';
+import { formatMoney } from '../../lib/formatters.js';
 
 // Chart.js loaded via CDN in index.html
 /* global Chart */
 
 const PALETTE = {
-  revenue: { bg: 'rgba(56, 189, 248, 0.75)', border: '#38bdf8' },
-  gross_margin: { bg: 'rgba(245, 158, 11, 0.75)', border: '#f59e0b' },
-  adjusted_ebitda: { bg: 'rgba(168, 85, 247, 0.75)', border: '#a855f7' },
-  net_income: { bg: 'rgba(16, 185, 129, 0.75)', border: '#10b981' },
+  revenue: { bg: 'rgba(105, 219, 124, 0.8)', border: '#69db7c' },
+  gross_margin: { bg: 'rgba(201, 242, 108, 0.8)', border: '#c9f26c' },
+  adjusted_ebitda: { bg: 'rgba(127, 184, 184, 0.8)', border: '#7fb8b8' },
+  net_income: { bg: 'rgba(255, 255, 255, 0.8)', border: '#ffffff' },
   eps: { bg: 'rgba(236, 72, 153, 0.75)', border: '#ec4899' },
   capex: { bg: 'rgba(239, 68, 68, 0.75)', border: '#ef4444' }
 };
@@ -20,6 +20,7 @@ export default function FinancialChart({
   periodType = 'Quarterly',
   chartType = 'bar',
   metricMode = 'all',
+  source = 'fichier JSON OneSheet',
   onPeriodChange,
   onChartTypeChange,
   onMetricSelect
@@ -59,7 +60,7 @@ export default function FinancialChart({
           borderRadius: chartType === 'bar' ? 6 : 0,
           fill: chartType === 'line',
           tension: 0.3,
-          yAxisID: key === 'eps' ? 'y1' : 'y'
+          yAxisID: 'y'
         });
       }
     };
@@ -82,8 +83,6 @@ export default function FinancialChart({
     } else if (metricMode === 'capex') {
       addDataset('capex', 'Capex', PALETTE.capex);
     }
-
-    const hasSecondaryAxis = datasets.some((d) => d.yAxisID === 'y1');
     const ctx = canvasRef.current.getContext('2d');
 
     chartInstanceRef.current = new Chart(ctx, {
@@ -104,10 +103,10 @@ export default function FinancialChart({
             }
           },
           tooltip: {
-            backgroundColor: '#1f2937',
+            backgroundColor: '#0b1111',
             titleColor: '#f3f4f6',
             bodyColor: '#e5e7eb',
-            borderColor: '#374151',
+            borderColor: '#3f5959',
             borderWidth: 1,
             padding: 10,
             callbacks: {
@@ -131,17 +130,7 @@ export default function FinancialChart({
               color: '#9ca3af',
               callback: (value) => formatMoney(value)
             }
-          },
-          y1: hasSecondaryAxis
-            ? {
-                position: 'right',
-                grid: { drawOnChartArea: false },
-                ticks: {
-                  color: PALETTE.eps.border,
-                  callback: (value) => value.toFixed(2) + ' $'
-                }
-              }
-            : undefined
+          }
         }
       }
     });
@@ -160,7 +149,7 @@ export default function FinancialChart({
           <h2>
             Évolution des Résultats {periodType === 'Quarterly' ? 'Trimestriels' : 'Annuels'}
           </h2>
-          <p className="chart-subtitle">Source officielle : data-pack/are.json</p>
+          <p className="chart-subtitle">Source : {source}</p>
         </div>
         <ChartControls
           periodType={periodType}

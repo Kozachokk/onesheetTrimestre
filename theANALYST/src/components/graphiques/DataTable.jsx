@@ -1,4 +1,4 @@
-import { formatMoney } from '../utils/formatters';
+import { formatMoney } from '../../lib/formatters.js';
 
 export default function DataTable({ periods = [], periodType = 'Quarterly' }) {
   const sortedPeriods = [...periods].reverse();
@@ -42,7 +42,7 @@ export default function DataTable({ periods = [], periodType = 'Quarterly' }) {
                   <td>
                     <strong>{label}</strong>
                   </td>
-                  <td className="text-muted">{p.reportDate || '—'}</td>
+                  <td className="text-muted">{p.reportDate || 'n. d.'}</td>
                   <td>{formatMoney(rev)}</td>
                   <td>{formatMoney(gm)}</td>
                   <td>{formatMoney(ebitda)}</td>

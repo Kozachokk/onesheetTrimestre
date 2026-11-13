@@ -1,4 +1,4 @@
-import { formatMoney } from '../utils/formatters';
+import { formatMoney } from '../../lib/formatters.js';
 
 export default function KpiCard({
   label,
@@ -20,7 +20,7 @@ export default function KpiCard({
     <div className={`kpi-card ${accentClass}`}>
       <div className="kpi-label">{label}</div>
       <div className={`kpi-value ${signClass}`}>{displayVal}</div>
-      <div className="kpi-sub">Période : {period || '—'}</div>
+      <div className="kpi-sub">Période : {period || 'n. d.'}</div>
     </div>
   );
 }

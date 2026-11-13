@@ -3,23 +3,23 @@
  */
 
 export function formatMoney(val, isPerShare = false) {
-  if (val === null || val === undefined || isNaN(val)) return '—';
+  if (val === null || val === undefined || isNaN(val)) return 'n. d.';
   
   if (isPerShare) {
-    return (val >= 0 ? '+' : '') + Number(val).toFixed(2) + ' $';
+    return (val >= 0 ? '+' : '') + Number(val).toFixed(2).replace('.', ',') + ' $';
   }
   
   const absVal = Math.abs(val);
   if (absVal >= 1e9) {
-    return (val / 1e9).toFixed(2) + ' B$';
+    return (val / 1e9).toFixed(2).replace('.', ',') + ' G$';
   }
   if (absVal >= 1e6) {
-    return (val / 1e6).toFixed(1) + ' M$';
+    return (val / 1e6).toFixed(1).replace('.', ',') + ' M$';
   }
   if (absVal >= 1e3) {
     return (val / 1e3).toFixed(0) + ' k$';
   }
-  return Number(val).toLocaleString() + ' $';
+  return Number(val).toLocaleString('fr-CA') + ' $';
 }
 
 export function formatPeriodLabel(period, periodType) {
@@ -43,5 +43,5 @@ export function getLatestQuarterMetric(dataList, metricKey) {
       };
     }
   }
-  return { value: null, period: '—' };
+  return { value: null, period: 'n. d.' };
 }
