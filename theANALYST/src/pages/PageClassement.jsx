@@ -7,6 +7,7 @@ import { csvClassement, justification } from '../lib/rapport.js';
 import { fr, formater } from '../lib/format.js';
 import Barre from '../components/commun/Barre.jsx';
 import Repliable from '../components/commun/Repliable.jsx';
+import Repartition from '../components/classement/Repartition.jsx';
 
 function telecharger(nom, contenu) {
   const lien = document.createElement('a');
@@ -44,6 +45,8 @@ export default function PageClassement() {
           </div>
         ) : <h2>Aucun titre admissible : assouplis les filtres ou monte un curseur.</h2>}
       </section>
+
+      <Repartition />
 
       <section className="carte defilement">
         <table className="donnees">

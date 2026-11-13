@@ -13,6 +13,7 @@ import { csvClassement, justification } from '../src/lib/rapport.js';
 import { formater } from '../src/lib/format.js';
 import * as achats from '../src/lib/acquisitions.js';
 import { traduire } from '../src/lib/traduction/traducteurDom.js';
+import { arrondirA100, enMontants, plafonner, repartir } from '../src/lib/repartition.js';
 
 const SEUILS = seuilsParDefaut(config.taux_obligataire_10ans);
 const ZERO = Object.fromEntries(DEFINITIONS.map((d) => [d.id, 0]));
@@ -229,9 +230,52 @@ describe('traduction anglaise de démonstration', () => {
     expect(traduire("C'est réglé. J'ai compris un horizon long, une faible tolérance au risque : j'ai donc mis l'accent sur dividende et solidité (peu de dette)."))
       .toBe('Done. I understood a long horizon, a low risk tolerance: so I emphasised dividend, strength (low debt).');
   });
+  it('traduit les phrases de la répartition', () => {
+    expect(traduire('total : 100 %')).toBe('total: 100%');
+    expect(traduire('Avec des actions entières, 9 906 $ sont investis ; il reste 94 $ en liquidités.')).toBe('With whole shares, 9 906 $ is invested; 94 $ remains in cash.');
+    expect(traduire('Sans part : TOI (pointage sous 50), CSU (éliminé (Perte nette sur 12 mois)).')).toBe('No share: TOI (score below 50), CSU (eliminated (Net loss over 12 months)).');
+  });
   it('laisse tels quels les chiffres, les noms et les textes inconnus', () => {
     expect(traduire('51')).toBeNull();
     expect(traduire('WSP')).toBeNull();
     expect(traduire('Constellation Software')).toBeNull();
+  });
+});
+
+describe('répartition du portefeuille', () => {
+  const somme = (l) => l.reduce((s, x) => s + x.pct, 0);
+  it('fait toujours 100 % et ne donne rien aux titres éliminés', () => {
+    const res = classement('buffett');
+    const { lignes, exclus } = repartir(res, { scoreMinimum: 0, maxTitres: 5, plafond: 0.4 });
+    expect(somme(lignes)).toBe(100);
+    expect(lignes.map((l) => l.ticker)).not.toContain('ARE');
+    expect(lignes.map((l) => l.ticker)).not.toContain('TFII');
+    expect(exclus.map((x) => x.ticker).sort()).toEqual(['ARE', 'TFII']);
+    lignes.forEach((l) => expect(l.pct).toBeLessThanOrEqual(40));
+  });
+  it('respecte le plafond, le nombre de titres et le pointage minimum', () => {
+    const res = classement('leonard');
+    expect(repartir(res, { maxTitres: 1, scoreMinimum: 0 }).lignes).toEqual([expect.objectContaining({ ticker: res[0].ticker, pct: 100 })]);
+    const egale = repartir(res, { methode: 'egale', maxTitres: 3, scoreMinimum: 0, plafond: 1 });
+    expect(egale.lignes.map((l) => l.pct).sort()).toEqual([33, 33, 34]);
+    expect(repartir(res, { scoreMinimum: 101 }).lignes).toHaveLength(0);
+  });
+  it('complète avec les titres suivants plutôt que de tout mettre sur un seul', () => {
+    const { lignes } = repartir(classement('revenu'), { scoreMinimum: 50, maxTitres: 5, plafond: 0.4 });
+    expect(somme(lignes)).toBe(100);
+    expect(lignes.length).toBeGreaterThanOrEqual(3);
+    lignes.forEach((l) => expect(l.pct).toBeLessThanOrEqual(40));
+    expect(lignes.some((l) => l.complement)).toBe(true);
+  });
+  it('outils : plafond, arrondi et montants', () => {
+    const p = plafonner([0.7, 0.2, 0.1], 0.5);
+    expect(p[0]).toBeCloseTo(0.5);
+    expect(p[1] + p[2]).toBeCloseTo(0.5);
+    expect(p[1] / p[2]).toBeCloseTo(2);
+    expect(plafonner([0.6, 0.4], 0.3).every((x) => Math.abs(x - 0.5) < 1e-9)).toBe(true); // plafond relevé à 50 %
+    expect(arrondirA100([1 / 3, 1 / 3, 1 / 3]).reduce((a, b) => a + b, 0)).toBe(100);
+    const m = enMontants([{ ticker: 'A', pct: 60 }, { ticker: 'B', pct: 40 }], 10000, { A: 99, B: null });
+    expect(m[0].actions).toBe(60);
+    expect(m[1].actions).toBeNull();
   });
 });

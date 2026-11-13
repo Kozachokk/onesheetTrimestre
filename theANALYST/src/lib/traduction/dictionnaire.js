@@ -112,6 +112,26 @@ const BASE = {
   'Montants en millions, dans la devise indiquée. Ce sont des chiffres réels, tirés de la source de chaque ligne.': 'Amounts in millions, in the currency shown. These are real figures, taken from each row’s source.',
   'Estimations de taille (ce ne sont pas des données réelles)': 'Size estimates (these are not real data)', 'Revenus estimés (M$ US)': 'Estimated revenue (US$M)', 'BAIIA (M$ US)': 'EBITDA (US$M)',
   'Basé sur': 'Based on',
+  'Répartition du portefeuille': 'Portfolio allocation', 'Selon le pointage': 'By score', 'Parts égales': 'Equal weights',
+  'Nombre de titres maximum :': 'Maximum number of stocks:', 'Pointage minimum :': 'Minimum score:', 'Maximum par titre :': 'Maximum per stock:',
+  'Montant à investir (facultatif, $ CA)': 'Amount to invest (optional, CAD)', 'Part du portefeuille': 'Portfolio share', Montant: 'Amount', 'Actions entières': 'Whole shares',
+  "Combien mettre sur chaque titre pour un total de 100 %, selon ton profil. C'est une règle de calcul appliquée au classement, pas une recommandation de placement.":
+    'How much to put in each stock for a total of 100%, based on your profile. It is a calculation rule applied to the ranking, not investment advice.',
+  'Aucun titre ne remplit les conditions : baisse le pointage minimum ou ajuste ton profil.': 'No stock meets the conditions: lower the minimum score or adjust your profile.',
+  'Comment la répartition est calculée': 'How the allocation is calculated',
+  "On garde les titres admissibles (non éliminés) dont le pointage atteint le minimum, puis les meilleurs, jusqu'au nombre maximum.":
+    'We keep eligible (non-eliminated) stocks whose score reaches the minimum, then the best ones, up to the maximum number.',
+  '« Selon le pointage » : chaque titre reçoit une part proportionnelle à son pointage. « Parts égales » : tous reçoivent la même part.':
+    '“By score”: each stock gets a share proportional to its score. “Equal weights”: they all get the same share.',
+  "Aucun titre ne dépasse le maximum par titre ; l'excédent est redistribué aux autres, au prorata. S'il y a trop peu de titres pour le respecter, on ajoute les meilleurs titres admissibles suivants, même sous le pointage minimum (pastille « ajouté pour le maximum »).":
+    'No stock exceeds the maximum per stock; the excess is redistributed to the others, pro rata. If there are too few stocks to respect it, the next best eligible stocks are added, even below the minimum score (“added for the maximum” badge).',
+  'ajouté pour le maximum': 'added for the maximum', 'Pointage sous le minimum, ajouté pour respecter le maximum par titre': 'Score below the minimum, added to respect the maximum per stock',
+  '(une action coûte plus que ce montant)': '(one share costs more than this amount)',
+  "Les parts sont arrondies à l'unité en gardant un total d'exactement 100 %.": 'Shares are rounded to whole numbers while keeping a total of exactly 100%.',
+  "Limites : la règle ne tient compte ni de ce que tu détiens déjà, ni des secteurs (deux titres de logiciels peuvent recevoir l'essentiel), ni de ta situation personnelle. Avec cinq titres seulement, un portefeuille reste très peu diversifié.":
+    'Limits: the rule does not account for what you already hold, for sectors (two software stocks may get most of it) or for your personal situation. With only five stocks, a portfolio remains very poorly diversified.',
+  'Cours du 12 novembre 2026 (source : stockanalysis.com), sans frais de courtage.': ' Prices as of November 12, 2026 (source: stockanalysis.com), before brokerage fees.',
+
   "Résultat d'exploitation": 'Operating income', 'Prix par employé (milliers)': 'Price per employee (thousands)',
   'Aller chercher les états financiers officiels': 'Find the official financial statements', "C'est quoi EDGAR ?": 'What is EDGAR?',
   "Choisir l'entreprise achetée": 'Choose the acquired company', 'Entreprise achetée choisie': 'Selected acquired company',
@@ -297,6 +317,9 @@ export const MOTIFS = [
   [/^📘 Méthode courante : (\d+) sur (\d+) · 🧪 Méthode maison : (\d+) sur (\d+)$/, '📘 Common method: $1 of $2 · 🧪 In-house method: $3 of $4'],
   [/^📘 (.+)$/, (m, nom) => `📘 ${EXACT[nom] || nom}`], [/^🧪 (.+)$/, (m, nom) => `🧪 ${EXACT[nom] || nom}`],
   [/^🧪 Méthode maison — peu répandue$/, '🧪 In-house method — uncommon'],
+  [/^total : (\d+) %$/, 'total: $1%'], [/^Sans part : (.+)\.$/, (m, liste) => `No share: ${liste.replace(/éliminé/g, 'eliminated').replace(/aucun pointage/g, 'no score').replace(/pointage sous (\d+)/g, 'score below $1').replace(/hors des (\d+) meilleurs/g, 'outside the top $1').replace(/Perte nette sur 12 mois/g, 'Net loss over 12 months').replace(/Dette = ([\d,]+) ans de FCF/g, 'Debt = $1 years of FCF').replace(/Dilution de ([\d,]+) % en 1 an/g, 'Dilution of $1% in 1 year')}.`],
+  [/^Avec des actions entières, ([\d\s,]+) \$ sont investis ; il reste ([-\d\s,]+) \$ en liquidités\.$/, 'With whole shares, $1 $ is invested; $2 $ remains in cash.'],
+  [/^ Avec (\d+) titre\(s\), le maximum est relevé à (\d+) % pour atteindre 100 %\.$/, ' With $1 stock(s), the maximum is raised to $2% to reach 100%.'],
   // Simulation, méthode
   [/^On refait le classement$/, 'The ranking is recomputed'], [/^fois en faisant varier chaque poids au hasard de ±$/, 'times, varying each weight at random by ±'],
   [/^%\. Si le premier change souvent, le choix dépend trop des poids\.$/, '%. If the leader changes often, the choice depends too much on the weights.'],

@@ -52,5 +52,12 @@
  },
  "avertissement": "Outil de démonstration, pas un conseil de placement.",
  "nom_site": "theANALYST",
- "seuil_p_fcf": 20
+ "seuil_p_fcf": 20,
+ "repartition": {
+  "_commentaire": "Valeurs de départ de la section Répartition du portefeuille (modifiables à l'écran).",
+  "methode": "pointage",
+  "max_titres": 5,
+  "score_minimum": 50,
+  "plafond": 0.4
+ }
 }

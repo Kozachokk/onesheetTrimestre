@@ -164,3 +164,9 @@ select:focus, input:focus, textarea:focus { outline: none; border-color: var(--a
 .verdict-acq.rouge { background: rgba(255, 135, 135, 0.1); border-color: var(--alerte); color: #ffd0d0; }
 .verdict-acq.orange { background: rgba(201, 242, 108, 0.08); border-color: var(--lime); }
 .verdict-acq.vert { background: rgba(105, 219, 124, 0.1); border-color: var(--accent); }
+
+/* Répartition du portefeuille */
+.repartition-barre { display: flex; height: 34px; border-radius: 10px; overflow: hidden; margin-bottom: 0.8rem; border: 1px solid var(--bord); }
+.repartition-barre span { display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.8rem;
+  white-space: nowrap; overflow: hidden; transition: width 520ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.pastille-couleur { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 7px; vertical-align: middle; }
