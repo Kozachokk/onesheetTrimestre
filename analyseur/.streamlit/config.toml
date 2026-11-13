@@ -1,0 +1,10 @@
+# Thème sobre, vert foncé OneSheet
+[theme]
+base = "light"
+primaryColor = "#1f5c55"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f1f5f4"
+textColor = "#1c2b29"
+
+[browser]
+gatherUsageStats = false
