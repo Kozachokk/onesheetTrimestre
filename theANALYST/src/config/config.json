@@ -59,5 +59,9 @@
   "max_titres": 5,
   "score_minimum": 50,
   "plafond": 0.4
+ },
+ "unites_etats_financiers": {
+  "_commentaire": "Unité des états financiers de chaque acquéreur, utilisée seulement quand un dépôt donne un prix sans unité. Par défaut : millions.",
+  "TOI": "milliers"
  }
 }

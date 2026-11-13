@@ -94,9 +94,9 @@ function fichesAvecRatios(acquereur) {
 // ---------------------------------------------------------------------------
 function statutChiffres(nomFiche) {
   const fiche = trouverFiche(nomFiche);
-  if (!fiche) return "❌ Non — aucun chiffre trouvé";
-  if (!estVide(fiche.revenus)) return "✅ Oui — voir le tableau 2";
-  return "🟧 Partiel — pas de revenus réels (taille estimée au tableau 4)";
+  if (!fiche) return "Non : aucun chiffre trouvé";
+  if (!estVide(fiche.revenus)) return "Oui : vrais chiffres disponibles";
+  return "Partiel : pas de revenus réels (taille estimée)";
 }
 
 function lienEdgar(cik) {
@@ -129,15 +129,15 @@ function choixEntreprises(acquereur) {
   const avecRegistre = choix.filter((c) => !aCik(c) && DONNEES.REGISTRES[c]);
   const sansRien = choix.filter((c) => !aCik(c) && !DONNEES.REGISTRES[c]);
   return [
-    ...avecEdgar.map((c) => ({ nom: c, type: "edgar", etiquette: `✅ ${c} — EDGAR disponible` })),
+    ...avecEdgar.map((c) => ({ nom: c, type: "edgar", etiquette: `${c} (EDGAR disponible)` })),
     ...avecRegistre.map((c) => ({ nom: c, type: "registre",
-      etiquette: `📂 ${c} — registre officiel : ${DONNEES.REGISTRES[c][0]}` })),
-    ...sansRien.map((c) => ({ nom: c, type: "rien", etiquette: `⛔ ${c} — aucune base de données publique` })),
+      etiquette: `${c} (registre officiel : ${DONNEES.REGISTRES[c][0]})` })),
+    ...sansRien.map((c) => ({ nom: c, type: "rien", etiquette: `${c} (aucune base de données publique)` })),
   ];
 }
 
 // ---------------------------------------------------------------------------
-// 4. ESTIMATIONS — ⚠️ pas des données réelles. Fourchettes en millions de $ US.
+// 4. ESTIMATIONS — attention : pas des données réelles. Fourchettes en millions de $ US.
 // ---------------------------------------------------------------------------
 function comparables() {
   return DONNEES.FICHES.map((f) => ({
@@ -215,7 +215,7 @@ function estimer(fiche, forcer = false) {
   }
 
   // Niveau de confiance (calibré sur le test de fiabilité)
-  est.confiance = est.methode === "multiple_inverse" ? "🔴 Très faible" : "🟠 Faible";
+  est.confiance = est.methode === "multiple_inverse" ? "Très faible" : "Faible";
   return est;
 }
 
@@ -226,7 +226,7 @@ function estimations(acquereur) {
     if ((acquereur && f.acquereur !== acquereur) || !estVide(f.revenus)) continue;
     const e = estimer(f);
     if (e === null) {
-      lignes.push({ cible: f.cible, revenus: "❌ impossible", baiia: "—",
+      lignes.push({ cible: f.cible, revenus: "impossible", baiia: "—",
                     methode: "Aucune firme comparable avec données", type: "—", confiance: "—", baseSur: "—" });
       continue;
     }
@@ -265,8 +265,9 @@ function testFiabilite() {
       dansFourchette: e.revBas <= reel && reel <= e.revHaut,
       ecartPct: arrondiEntier(ecart),
       ecart: `${ecart >= 0 ? "+" : "-"}${entier(Math.abs(ecart))} %`,
-      courante: m.type.startsWith("📘"),
-      methode: `${m.type.split(" ")[0]} ${m.nom}`,
+      courante: m.type.startsWith("Méthode courante"),
+      methode: m.nom,
+      type: m.type,
     });
   }
   return lignes;
@@ -284,9 +285,9 @@ function verdict() {
     okCourante: courante.filter((l) => l.dansFourchette).length, nCourante: courante.length,
     okMaison: maison.filter((l) => l.dansFourchette).length, nMaison: maison.length,
     niveau: taux < 0.5 ? "rouge" : taux < 0.8 ? "orange" : "vert",
-    titre: taux < 0.5 ? "❌ VERDICT : NOS ESTIMATIONS NE SONT PAS FIABLES"
-         : taux < 0.8 ? "⚠️ VERDICT : ESTIMATIONS MOYENNEMENT FIABLES"
-         : "✅ VERDICT : ESTIMATIONS FIABLES",
+    titre: taux < 0.5 ? "Verdict : nos estimations ne sont pas fiables"
+         : taux < 0.8 ? "Verdict : estimations moyennement fiables"
+         : "Verdict : estimations fiables",
   };
 }
 

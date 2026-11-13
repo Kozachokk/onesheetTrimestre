@@ -861,22 +861,22 @@ export const DONNEES = {
  "METHODES": {
   "baiia_connu": {
    "nom": "BAIIA réel ÷ marge BAIIA des comparables",
-   "type": "📘 Méthode courante",
+   "type": "Méthode courante",
    "explication": "Quand on connaît le vrai BAIIA de la cible, on en déduit ses revenus avec la marge BAIIA de firmes du même secteur. Seuls les revenus sont estimés."
   },
   "revenus_par_employe": {
    "nom": "Revenus par employé des comparables",
-   "type": "📘 Méthode courante",
+   "type": "Méthode courante",
    "explication": "Revenus/employé de firmes du même secteur (vraies données) × nombre d'employés de la cible. Utilisée couramment pour estimer la taille des firmes privées."
   },
   "multiple_inverse": {
    "nom": "Prix payé ÷ multiple habituel de l'acquéreur",
-   "type": "🧪 Méthode maison — peu répandue",
+   "type": "Méthode maison, peu répandue",
    "explication": "On part du prix payé et on divise par les multiples prix/revenus que le MÊME acquéreur a payés ailleurs (25e à 75e centile). Inspirée des transactions comparables, mais utilisée à l'envers : hypothèse forte que l'acquéreur paie toujours un multiple semblable."
   },
   "marge_comparables": {
    "nom": "Marge BAIIA des comparables (pour le BAIIA estimé)",
-   "type": "📘 Méthode courante",
+   "type": "Méthode courante",
    "explication": "BAIIA estimé = revenus estimés × marge BAIIA observée chez des firmes du même secteur."
   }
  }

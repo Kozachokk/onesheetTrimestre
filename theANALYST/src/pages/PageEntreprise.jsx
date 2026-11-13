@@ -124,7 +124,7 @@ export default function PageEntreprise({ ticker }) {
       </Repliable>
 
       <Repliable titre={`Sous-compagnies : entreprises achetées (${(ACHATS.LISTES[ticker] || []).length})`}>
-        <SousCompagnies ticker={ticker} />
+        <SousCompagnies ticker={ticker} devise={e.deviseRapport} />
       </Repliable>
 
       <Repliable titre="Fiche qualitative">

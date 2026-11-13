@@ -14,6 +14,7 @@ import { formater } from '../src/lib/format.js';
 import * as achats from '../src/lib/acquisitions.js';
 import { traduire } from '../src/lib/traduction/traducteurDom.js';
 import { arrondirA100, enMontants, plafonner, repartir } from '../src/lib/repartition.js';
+import { harmoniserPrix, lireNombre, texteprix } from '../src/lib/prixAchat.js';
 
 const SEUILS = seuilsParDefaut(config.taux_obligataire_10ans);
 const ZERO = Object.fromEntries(DEFINITIONS.map((d) => [d.id, 0]));
@@ -277,5 +278,42 @@ describe('répartition du portefeuille', () => {
     const m = enMontants([{ ticker: 'A', pct: 60 }, { ticker: 'B', pct: 40 }], 10000, { A: 99, B: null });
     expect(m[0].actions).toBe(60);
     expect(m[1].actions).toBeNull();
+  });
+});
+
+describe('prix payés des sous-compagnies', () => {
+  // fr() met une espace insécable entre les milliers : on la remplace par une espace simple pour comparer
+  const prix = (montant, resume, devise = 'USD', unite = 'millions') => texteprix(harmoniserPrix({ montant, resume }, devise, unite)).replace(/[\u00a0\u202f]/g, ' ');
+  it('lit les nombres écrits à l\'anglaise', () => {
+    expect(lireNombre('22,508')).toBe(22508);
+    expect(lireNombre('168.0')).toBe(168);
+    expect(lireNombre('56.1 million')).toBe(56.1);
+    expect(lireNombre(null)).toBeNull();
+  });
+  it('ramène tous les prix au même format (millions, virgule décimale, espace pour les milliers)', () => {
+    expect(prix('22,508', 'for total consideration of EUR 22,508 thousand.', 'EUR', 'milliers')).toBe('22,5 M EUR');
+    expect(prix('3.4', 'for a total cash purchase price of US$3.4 billion ($4.6 billion)', 'CAD')).toBe('3 400 M USD');
+    expect(prix('2360', 'for US$1.75 billion ($2.36 billion).', 'CAD')).toBe('2 360 M CAD');
+    expect(prix('817.0', 'for a total purchase price of $817.0 million')).toBe('817 M USD');
+    expect(prix('56.1 million', 'total consideration of €56.1 million.', 'EUR')).toBe('56,1 M EUR');
+    expect(prix('223629', 'completed the acquisition of 100% of the shares of Cipal', 'EUR', 'milliers')).toBe('223,6 M EUR');
+    expect(prix('999', 'cash consideration of $757 plus holdbacks and contingent consideration, totaling $999, in the six months')).toBe('999 M USD');
+    expect(prix(null, 'x')).toBe('n. d.');
+  });
+  it('signale un prix par action et un montant qui ne correspond pas au résumé', () => {
+    const offre = harmoniserPrix({ montant: '51.50', resume: 'to acquire all shares of Arcadis N.V. at €51.50 per share' }, 'CAD');
+    expect(offre.parAction).toBe(true);
+    expect(texteprix(offre)).toBe('51,50 EUR par action');
+    const ecart = harmoniserPrix({ montant: '673', resume: 'cash consideration of $1,241 plus cash holdbacks of $313, totaling $1,605 for the nine months' }, 'USD');
+    expect(ecart.note).toMatch(/^à vérifier/);
+  });
+  it('aucun emoji dans les libellés des sous-compagnies', () => {
+    const emoji = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u;
+    const titres = Object.keys(achats.DONNEES.LISTES);
+    const textes = [...titres.flatMap((t) => achats.choixEntreprises(t).map((c) => c.etiquette)),
+      ...Object.values(achats.DONNEES.METHODES).map((m) => m.type), achats.verdict().titre,
+      ...titres.flatMap((t) => achats.estimations(t).map((e) => `${e.confiance} ${e.revenus}`)),
+      ...titres.flatMap((t) => achats.DONNEES.LISTES[t].map((l) => achats.statutChiffres(l.fiche)))];
+    textes.forEach((t) => expect(t).not.toMatch(emoji));
   });
 });
