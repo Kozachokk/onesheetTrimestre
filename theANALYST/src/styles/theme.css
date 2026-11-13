@@ -131,10 +131,14 @@ details.repli[open] > summary::after { transform: rotate(45deg); }
 details.repli > summary:hover { color: var(--accent); }
 details.repli > .contenu { padding: 0 1.2rem 1.2rem; animation: apparition 300ms ease both; }
 
-/* ---------- Source au survol ---------- */
-.source { position: relative; display: inline-block; }
-.source .fenetre { position: absolute; z-index: 30; right: 0; top: 1.5rem; width: min(340px, 80vw); background: #0f1818; border: 1px solid var(--sarcelle); border-radius: 10px; padding: 0.7rem 0.8rem; font-size: 0.8rem; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7); animation: apparition 180ms ease both; text-align: left; }
-.source .fenetre q { display: block; color: var(--discret); margin: 0.35rem 0; font-style: italic; }
+/* ---------- Fenêtre « voir la source » (affichée par-dessus la page) ---------- */
+.fenetre-source { position: fixed; z-index: 80; background: #0f1818; border: 1px solid var(--accent); border-radius: 12px; padding: 0.8rem 2rem 0.8rem 0.9rem;
+  font-size: 0.82rem; line-height: 1.45; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.8); animation: apparition 160ms ease both; text-align: left; max-height: 60vh; overflow-y: auto; }
+.fenetre-source b { display: block; margin: 0.15rem 0; word-break: break-word; }
+.fenetre-source q { display: block; color: var(--discret); margin: 0.45rem 0; font-style: italic; }
+.fenetre-source a { display: inline-block; margin-top: 0.35rem; font-weight: 700; }
+.fenetre-source .fermer { position: absolute; top: 0.4rem; right: 0.5rem; background: none; border: none; color: var(--discret); font-size: 0.9rem; }
+.fenetre-source .fermer:hover { color: var(--accent); }
 
 /* ---------- Divers ---------- */
 .chiffres-cles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.7rem; }
