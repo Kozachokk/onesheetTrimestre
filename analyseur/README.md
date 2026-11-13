@@ -1,6 +1,6 @@
 # Analyseur d'actions (hackathon OneSheet)
 
-Application web Streamlit qui analyse des actions à partir de leurs données financières, calcule 30 ratios et produit un classement où l'utilisateur décide de l'importance de chaque ratio avec des curseurs. Des profils d'investisseur préréglés (Buffett, Graham, Lynch, Greenblatt, Mark Leonard, etc.) appliquent d'un coup leurs poids et leurs filtres.
+Application web Streamlit qui analyse des actions à partir de leurs données financières, calcule 31 ratios et produit un classement où l'utilisateur décide de l'importance de chaque ratio avec des curseurs. Des profils d'investisseur préréglés (Buffett, Graham, Lynch, Greenblatt, Mark Leonard, etc.) appliquent d'un coup leurs poids et leurs filtres.
 
 Outil éducatif, pas un conseil financier.
 
@@ -45,7 +45,7 @@ Le thème vert se trouve dans `.streamlit/config.toml` (une copie à la racine d
 |---|---|
 | `app.py` | Interface : barre latérale (profil, filtres, curseurs, réglages) et 7 onglets |
 | `donnees.py` | Chargement : JSON OneSheet + CSV de marché, yfinance, téléversement ; conversion en CAD |
-| `ratios.py` | Formules des 30 ratios et note de 0 à 100 |
+| `ratios.py` | Formules des 31 ratios et note de 0 à 100 |
 | `ratios.json` | Nom, catégorie, seuils mauvais / bon, formule et explication de chaque ratio |
 | `pointage.py` | Score pondéré, indice de confiance, filtres éliminatoires, simulation de solidité |
 | `profils.json` | Profils d'investisseur (poids et filtres) |

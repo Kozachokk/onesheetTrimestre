@@ -21,7 +21,7 @@ def curseurs(at):
 def test_demarrage_sans_erreur_et_classement_buffett():
     at = lancer()
     assert not at.exception
-    assert len(curseurs(at)) == 30
+    assert len(curseurs(at)) == 31
     classement = at.session_state["_classement"]
     assert [t for t, _, _ in classement[:2]] == ["TOI", "CSU"]
     assert {t for t, _, elimine in classement if elimine} == {"ARE", "TFII"}
@@ -34,6 +34,14 @@ def test_profil_mark_leonard():
     assert tickers(at)[:2] == ["TOI", "CSU"]
     assert {t for t, _, elimine in at.session_state["_classement"] if elimine} == {"ARE", "TFII"}
     assert at.session_state["w_roic_plus_og"] == 10
+
+
+def test_le_profil_applique_ses_propres_seuils():
+    at = lancer()
+    assert (at.session_state["sm_pe_prevu"], at.session_state["sb_pe_prevu"]) == (30, 15)   # Buffett
+    at.selectbox(key="profil_id").set_value("croissance").run()
+    assert (at.session_state["sm_pe_prevu"], at.session_state["sb_pe_prevu"]) == (45, 20)
+    assert at.session_state["w_pe_prevu"] == 3
 
 
 def test_changer_un_curseur_change_le_classement():

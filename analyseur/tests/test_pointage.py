@@ -16,7 +16,7 @@ BASE = donnees.charger_base(CONFIG["taux_change"])
 
 def classement(id_profil, poids=None, filtres=None):
     p = PROFIL[id_profil]
-    return pointage.classer(BASE, DEFINITIONS, poids or pointage.poids_du_profil(p, DEFINITIONS), SEUILS,
+    return pointage.classer(BASE, DEFINITIONS, poids or pointage.poids_du_profil(p, DEFINITIONS), pointage.seuils_du_profil(p, SEUILS),
                             p["filtres"] if filtres is None else filtres, CONFIG["filtres"])
 
 
@@ -86,6 +86,19 @@ def test_profils_ne_citent_que_des_ratios_et_filtres_connus():
     for p in PROFILS:
         assert set(p.get("poids", {})) <= ids, p["id"]
         assert set(p.get("filtres", [])) <= set(CONFIG["filtres"]), p["id"]
+
+
+def test_pe_previsionnel_seuils_propres_au_profil():
+    """Le même P/E prévisionnel est noté différemment selon le profil (Graham strict, Croissance tolérant)."""
+    assert pointage.seuils_du_profil(PROFIL["leonard"], SEUILS)["pe_prevu"] == (30.0, 12.0)   # seuils de ratios.json
+    assert pointage.seuils_du_profil(PROFIL["graham"], SEUILS)["pe_prevu"] == (20.0, 9.0)
+    assert pointage.seuils_du_profil(PROFIL["croissance"], SEUILS)["pe_prevu"] == (45.0, 20.0)
+    poids = dict(zero(), pe_prevu=1.0)
+    note_csu = lambda prof: {r["ticker"]: r for r in classement(prof, poids, filtres=[])}["CSU"]["notes"]["pe_prevu"]
+    assert note_csu("graham") == 0                          # 20,09 dépasse le seuil mauvais de Graham
+    assert note_csu("croissance") == pytest.approx((45 - 20.09) / 25 * 100)
+    are = {r["ticker"]: r for r in classement("lynch", poids, filtres=[])}["ARE"]
+    assert are["valeurs"]["pe_prevu"]["valeur"] == pytest.approx(26.31)  # disponible même si le P/E courant est n.d.
 
 
 def test_simulation_solidite():

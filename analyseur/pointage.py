@@ -31,6 +31,12 @@ def poids_du_profil(profil: dict, definitions: list) -> dict:
     return {d["id"]: float(profil.get("poids", {}).get(d["id"], defaut)) for d in definitions}
 
 
+def seuils_du_profil(profil: dict, seuils: dict) -> dict:
+    """Seuils {id: (mauvais, bon)} d'un profil : ceux de ratios.json, sauf ceux que le profil remplace ('seuils')."""
+    propres = {i: (float(v[0]), float(v[1])) for i, v in profil.get("seuils", {}).items() if i in seuils}
+    return {**seuils, **propres}
+
+
 # --------------------------------------------------------------------------- filtres éliminatoires
 
 def raisons_elimination(entreprise: dict, valeurs: dict, filtres_actifs: list, config_filtres: dict) -> list:

@@ -127,6 +127,7 @@ FORMULES = {
     "altman_z": lambda g: g("altman_z"),
     "piotroski_f": lambda g: g("piotroski_f"),
     "pe": lambda g: g("pe") if (g("pe") or 0) > 0 else None,
+    "pe_prevu": lambda g: g("pe_prevu") if (g("pe_prevu") or 0) > 0 else None,
     "pb": lambda g: _div(g("capitalisation_cad_m"), g("capitaux_propres_cad_m")) if (g("capitaux_propres_cad_m") or 0) > 0 else None,
     "ev_ebit": lambda g: _premier(g("ev_ebit"), _div(g("valeur_entreprise_cad_m"), g("resultat_exploitation_ttm_cad_m"))
                                   if (g("resultat_exploitation_ttm_cad_m") or 0) > 0 else None),

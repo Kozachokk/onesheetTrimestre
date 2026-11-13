@@ -457,9 +457,11 @@ with onglets[2]:
 # --------------------------------------------------------------------------- 4. Profils
 
 with onglets[3]:
-    st.write("Chaque titre noté sous tous les profils préréglés (poids et filtres d'origine de chaque profil, seuils actuels).")
-    par_profil = {p["id"]: pointage.classer(ENTREPRISES, DEFINITIONS, pointage.poids_du_profil(p, DEFINITIONS), SEUILS,
-                                           p.get("filtres", []), CONFIG["filtres"]) for p in PROFILS}
+    st.write("Chaque titre noté sous tous les profils préréglés (poids, filtres et seuils d'origine de chaque profil).")
+    seuils_origine = seuils_par_defaut(DEFINITIONS, TAUX_10ANS)
+    par_profil = {p["id"]: pointage.classer(ENTREPRISES, DEFINITIONS, pointage.poids_du_profil(p, DEFINITIONS),
+                                           pointage.seuils_du_profil(p, seuils_origine), p.get("filtres", []), CONFIG["filtres"])
+                  for p in PROFILS}
     court = lambda p: p["nom"].split(",")[0]
     lignes = []
     for t in sorted(ENTREPRISES):
@@ -527,6 +529,10 @@ with onglets[5]:
         poids_p = sorted(p.get("poids", {}).items(), key=lambda x: -x[1])
         detail = ", ".join(f"{DEFS[i]['nom']} {v}" for i, v in poids_p if i in DEFS) or f"tous les ratios à {p.get('poids_defaut', 0)}"
         filtres_p = ", ".join(CONFIG["filtres"][f]["nom"] for f in p.get("filtres", [])) or "aucun"
+        seuils_p = " ; ".join(f"{DEFS[i]['nom']} {formater(v[0], DEFS[i]['format'])} → {formater(v[1], DEFS[i]['format'])}"
+                              for i, v in p.get("seuils", {}).items() if i in DEFS)
+        if seuils_p:
+            filtres_p += f". Seuils propres au profil : {seuils_p} ({p.get('note_seuils', '').rstrip('.')})"
         st.markdown(f"**{p['nom']}** : {p['description']}  \nPoids : {detail}. Filtres : {filtres_p}."
                     + (f"  \n*{MENTION}*" if p.get("inspire") else ""))
 

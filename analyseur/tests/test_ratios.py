@@ -32,7 +32,7 @@ def test_note_donnee_manquante():
 
 
 def test_trente_ratios_avec_formule():
-    assert len(DEFINITIONS) == 30
+    assert len(DEFINITIONS) == 31
     assert {d["id"] for d in DEFINITIONS} == set(FORMULES)
     assert all(d["categorie"] in CATEGORIES for d in DEFINITIONS)
 
