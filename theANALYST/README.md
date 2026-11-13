@@ -24,6 +24,16 @@ npm run lint
 npm run build
 ```
 
+## Mettre le site en ligne (GitHub Pages, gratuit)
+
+Le site n'a pas besoin de serveur : c'est un site statique. Le fichier `.github/workflows/deploy.yml` le construit, lance les tests et le publie sur GitHub Pages à chaque mise à jour de la branche `main`.
+
+1. Une seule fois, dans le dépôt GitHub : **Settings > Pages > Build and deployment > Source : « GitHub Actions »** (il faut être propriétaire ou administrateur du dépôt).
+2. Fusionner les changements dans `main` (par exemple avec le bouton « Merge pull request »).
+3. Suivre la publication dans l'onglet **Actions** du dépôt (environ 1 minute).
+
+Le site est alors accessible à tous à l'adresse `https://<compte>.github.io/<dépôt>/`, ici https://kozachokk.github.io/onesheetTrimestre/. Pour republier sans nouveau changement : onglet Actions > « Deploy static content to Pages » > « Run workflow ».
+
 ## Pages
 
 | Page | Contenu |
@@ -95,4 +105,4 @@ theANALYST/
 - **Croissance du BPA** : calculée de 2023 à 2025 (2 ans), et de 2024 à 2025 pour Topicus.
 - **Achat d'une filiale** : la date et le prix ne s'affichent que si un événement d'acquisition des dépôts nomme l'entité ; le montant est repris tel qu'inscrit, sans conversion.
 - **CSV du courtier** : lu dans le navigateur. Seul un résumé (titres, poids arrondis, types de comptes) peut être envoyé à l'IA, jamais le fichier ni les numéros de compte. Le format exact de Wealthsimple n'a pas été vérifié avec un vrai fichier.
-- **Bouton « EN »** : décoratif pour l'instant.
+- **Bouton « EN »** : traduit l'interface en anglais ; les textes saisis par l'utilisateur ne sont pas traduits.
