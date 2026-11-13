@@ -1,0 +1,48 @@
+/* hall.css : Hall des dirigeants, scène 2D vue de côté. */
+.hall { position: relative; overflow: hidden; cursor: none; user-select: none; border-top: 1px solid var(--bord); border-bottom: 1px solid var(--bord); background: #050909; }
+.hall button, .hall [role='button'] { cursor: none; }
+.hall-mur {
+  position: absolute; inset: 0; background-color: #070d0d;
+  background-image: linear-gradient(90deg, rgba(63, 89, 89, 0.22) 1px, transparent 1px), linear-gradient(rgba(63, 89, 89, 0.12) 1px, transparent 1px);
+  background-size: 190px 100%, 100% 80px;
+}
+.hall-sol { position: absolute; left: 0; right: 0; bottom: 0; background-color: #0d1616; border-top: 3px solid var(--sarcelle);
+  background-image: linear-gradient(90deg, rgba(105, 219, 124, 0.08) 2px, transparent 2px); background-size: 120px 100%; }
+.hall-poste { position: absolute; width: 300px; height: 100%; }
+.personnage { display: block; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6)); }
+.personnage path, .personnage circle { transition: d 200ms ease; }
+
+.hall-projecteur { position: absolute; left: -130px; top: 0; width: 560px; height: 580px; pointer-events: none;
+  background: linear-gradient(180deg, rgba(105, 219, 124, 0.42), rgba(105, 219, 124, 0.03)); clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  animation: projecteur 3.6s ease-in-out infinite; }
+@keyframes projecteur { 50% { opacity: 0.6; } }
+
+.hall-rang { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); text-align: center; background: rgba(0, 0, 0, 0.75); border: 1px solid var(--sarcelle);
+  border-radius: 12px; padding: 0.3rem 0.9rem; white-space: nowrap; z-index: 3; }
+.hall-rang b { display: block; font-size: 1.1rem; font-weight: 800; }
+.hall-rang span { color: var(--discret); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.hall-rang.premier { border-color: var(--accent); box-shadow: 0 0 22px rgba(105, 219, 124, 0.5); }
+.hall-rang.premier b { color: var(--accent); }
+.hall-rang.elimine b { color: var(--alerte); }
+
+.hall-plaque { position: absolute; left: 50%; transform: translateX(-50%); width: 290px; text-align: center; border: 1px solid #6a5a2a; border-radius: 6px;
+  background: linear-gradient(180deg, #2a2413, #15120a); color: #f3e7c0; padding: 0.35rem 0.6rem; transition: var(--transition); z-index: 3; }
+.hall-plaque:hover { border-color: var(--lime); transform: translateX(-50%) translateY(-2px); }
+.hall-plaque b { display: block; font-size: 0.98rem; font-weight: 800; }
+.hall-plaque span { display: block; font-size: 0.7rem; opacity: 0.85; line-height: 1.25; }
+.hall-plaque em { display: block; font-style: normal; font-size: 0.72rem; color: var(--lime); font-weight: 700; }
+
+/* Étiquettes au mur, derrière le dirigeant : tout ce que l'entreprise possède */
+.hall-etiquettes { position: absolute; left: 215px; top: 84px; width: 430px; max-height: 440px; overflow: hidden; display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; z-index: 1; }
+.hall-etiquette { font-size: 0.66rem; font-weight: 600; padding: 2px 7px; border-radius: 5px; border: 1px solid var(--bord); background: rgba(17, 26, 26, 0.9); color: #cfe0dd;
+  transition: var(--transition); white-space: nowrap; }
+.hall-etiquette:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.08); z-index: 4; }
+.hall-etiquette.segment, .hall-etiquette.business-line { border-color: rgba(201, 242, 108, 0.45); color: var(--lime); }
+.hall-etiquette.project { opacity: 0.85; }
+
+/* Main du visiteur et poignée de main */
+.hall-main { position: absolute; pointer-events: none; z-index: 6; filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.7)); transition: transform 80ms; }
+.secoue { animation: secoue 260ms ease-in-out 4; transform-box: fill-box; }
+@keyframes secoue { 0%, 100% { transform: translateY(0); } 25% { transform: translateY(-9px); } 75% { transform: translateY(9px); } }
+.hall.poignee::after { content: 'Enchanté !'; position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--accent); color: #000; font-weight: 800;
+  padding: 0.4rem 1.1rem; border-radius: 999px; animation: apparition 200ms ease both; z-index: 7; }

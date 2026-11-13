@@ -1,0 +1,193 @@
+{
+ "_commentaire": "Profils d'investisseur. 'poids' : importance de chaque critère (la somme fait 100). Les ratios non listés valent 0. 'filtres' : perte_nette, altman, dette_fcf, dilution. 'seuils' (facultatif) remplace les seuils [mauvais, bon] de ratios.json pour ce profil.",
+ "mention": "inspiré de",
+ "criteres": [
+  {
+   "id": "pe",
+   "nom": "P/E"
+  },
+  {
+   "id": "p_fcf",
+   "nom": "P/FCF"
+  },
+  {
+   "id": "croissance_revenus",
+   "nom": "Croissance des revenus"
+  },
+  {
+   "id": "croissance_bpa",
+   "nom": "Croissance du BPA"
+  },
+  {
+   "id": "marge_fcf",
+   "nom": "Marge de FCF"
+  },
+  {
+   "id": "dette_fcf",
+   "nom": "Solidité (peu de dette)"
+  },
+  {
+   "id": "rendement_dividende",
+   "nom": "Dividende"
+  }
+ ],
+ "profils": [
+  {
+   "id": "buffett",
+   "nom": "Warren Buffett",
+   "style": "qualité à prix raisonnable",
+   "inspire": true,
+   "description": "Acheter d'excellentes entreprises, rentables et peu endettées, à un prix raisonnable, puis les garder longtemps.",
+   "poids": {
+    "pe": 15,
+    "p_fcf": 15,
+    "croissance_revenus": 10,
+    "croissance_bpa": 20,
+    "marge_fcf": 20,
+    "dette_fcf": 15,
+    "rendement_dividende": 5
+   },
+   "filtres": [
+    "perte_nette",
+    "dette_fcf"
+   ],
+   "seuils": {
+    "pe_prevu": [
+     30,
+     15
+    ]
+   }
+  },
+  {
+   "id": "graham",
+   "nom": "Benjamin Graham",
+   "style": "valeur profonde",
+   "inspire": true,
+   "description": "Acheter des titres bon marché par rapport à leurs profits, avec un bilan solide comme marge de sécurité.",
+   "poids": {
+    "pe": 30,
+    "p_fcf": 25,
+    "croissance_revenus": 0,
+    "croissance_bpa": 5,
+    "marge_fcf": 5,
+    "dette_fcf": 30,
+    "rendement_dividende": 5
+   },
+   "filtres": [
+    "perte_nette"
+   ],
+   "seuils": {
+    "pe_prevu": [
+     20,
+     9
+    ]
+   }
+  },
+  {
+   "id": "lynch",
+   "nom": "Peter Lynch",
+   "style": "croissance à prix raisonnable",
+   "inspire": true,
+   "description": "Chercher des entreprises dont les profits grandissent vite, sans payer cette croissance trop cher.",
+   "poids": {
+    "pe": 20,
+    "p_fcf": 10,
+    "croissance_revenus": 25,
+    "croissance_bpa": 30,
+    "marge_fcf": 5,
+    "dette_fcf": 5,
+    "rendement_dividende": 5
+   },
+   "filtres": [],
+   "seuils": {
+    "pe_prevu": [
+     30,
+     12
+    ]
+   }
+  },
+  {
+   "id": "greenblatt",
+   "nom": "Joel Greenblatt",
+   "style": "formule magique",
+   "inspire": true,
+   "description": "Combiner une entreprise très rentable et un prix bas.",
+   "poids": {
+    "pe": 30,
+    "p_fcf": 25,
+    "croissance_revenus": 0,
+    "croissance_bpa": 5,
+    "marge_fcf": 35,
+    "dette_fcf": 5,
+    "rendement_dividende": 0
+   },
+   "filtres": []
+  },
+  {
+   "id": "leonard",
+   "nom": "Mark Leonard",
+   "style": "consolidateurs (acquéreurs en série)",
+   "inspire": true,
+   "description": "Juger une entreprise qui grandit par acquisitions : argent comptant généré, croissance, peu de dette et aucune dilution.",
+   "poids": {
+    "pe": 0,
+    "p_fcf": 20,
+    "croissance_revenus": 25,
+    "croissance_bpa": 10,
+    "marge_fcf": 30,
+    "dette_fcf": 10,
+    "rendement_dividende": 5
+   },
+   "filtres": [
+    "dette_fcf",
+    "dilution"
+   ]
+  },
+  {
+   "id": "revenu",
+   "nom": "Revenu et dividendes",
+   "style": "",
+   "inspire": false,
+   "description": "Privilégier un dividende élevé et soutenable, versé par une entreprise stable et peu endettée.",
+   "poids": {
+    "pe": 10,
+    "p_fcf": 15,
+    "croissance_revenus": 0,
+    "croissance_bpa": 5,
+    "marge_fcf": 10,
+    "dette_fcf": 20,
+    "rendement_dividende": 40
+   },
+   "filtres": [],
+   "seuils": {
+    "pe_prevu": [
+     22,
+     10
+    ]
+   }
+  },
+  {
+   "id": "croissance",
+   "nom": "Croissance long terme",
+   "style": "",
+   "inspire": false,
+   "description": "Miser sur les entreprises dont les ventes et les profits augmentent rapidement ; le prix compte peu.",
+   "poids": {
+    "pe": 5,
+    "p_fcf": 5,
+    "croissance_revenus": 35,
+    "croissance_bpa": 25,
+    "marge_fcf": 15,
+    "dette_fcf": 10,
+    "rendement_dividende": 5
+   },
+   "filtres": [],
+   "seuils": {
+    "pe_prevu": [
+     45,
+     20
+    ]
+   }
+  }
+ ]
+}

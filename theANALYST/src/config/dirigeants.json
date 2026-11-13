@@ -1,0 +1,51 @@
+{
+ "_commentaire": "Dirigeants vérifiés le 12 novembre 2026. 'apparence' sert seulement à varier les personnages illustrés (aucune ressemblance recherchée).",
+ "verifie_le": "2026-11-12",
+ "dirigeants": {
+  "WSP": {
+   "nom": "Alexandre L'Heureux",
+   "titre": "Président et chef de la direction",
+   "apparence": {
+    "veston": "#2b3f5c",
+    "cheveux": "#3b2a1e",
+    "cravate": "#69db7c"
+   }
+  },
+  "CSU": {
+   "nom": "Mark Miller",
+   "titre": "Président",
+   "apparence": {
+    "veston": "#3f5959",
+    "cheveux": "#8a8a8a",
+    "cravate": "#c9f26c"
+   }
+  },
+  "TFII": {
+   "nom": "Alain Bédard",
+   "titre": "Président du conseil, président et chef de la direction",
+   "apparence": {
+    "veston": "#4a3b52",
+    "cheveux": "#c9c9c9",
+    "cravate": "#69db7c"
+   }
+  },
+  "TOI": {
+   "nom": "Ramon Zanders",
+   "titre": "Chef de la direction",
+   "apparence": {
+    "veston": "#24424a",
+    "cheveux": "#5a4632",
+    "cravate": "#c9f26c"
+   }
+  },
+  "ARE": {
+   "nom": "Jean-Louis Servranckx",
+   "titre": "Président et chef de la direction",
+   "apparence": {
+    "veston": "#50402c",
+    "cheveux": "#a8a8a8",
+    "cravate": "#69db7c"
+   }
+  }
+ }
+}

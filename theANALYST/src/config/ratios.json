@@ -1,0 +1,492 @@
+{
+ "_commentaire": "Définition des ratios. 'mauvais' donne la note 0 et 'bon' la note 100 (linéaire entre les deux). Si mauvais > bon, plus bas = mieux. Formats : pct, x, ans, nombre. La valeur spéciale \"taux_10ans\" reprend le taux obligataire des réglages. Les formules de calcul sont dans ratios.py (même identifiant).",
+ "categories": [
+  "Rentabilité",
+  "Croissance",
+  "Santé financière",
+  "Valorisation",
+  "Allocation du capital",
+  "Momentum et risque"
+ ],
+ "ratios": [
+  {
+   "id": "roe",
+   "nom": "ROE",
+   "categorie": "Rentabilité",
+   "sens": "haut",
+   "mauvais": 0.05,
+   "bon": 0.2,
+   "format": "pct",
+   "formule": "Bénéfice net ÷ capitaux propres",
+   "explication": "Ce que l'entreprise gagne pour chaque dollar que les actionnaires y ont laissé.",
+   "champs": [
+    "roe",
+    "benefice_net_ttm_cad_m",
+    "capitaux_propres_cad_m"
+   ]
+  },
+  {
+   "id": "roic",
+   "nom": "ROIC",
+   "categorie": "Rentabilité",
+   "sens": "haut",
+   "mauvais": 0.06,
+   "bon": 0.2,
+   "format": "pct",
+   "formule": "Bénéfice d'exploitation après impôt ÷ capital investi (dette + capitaux propres)",
+   "explication": "Le rendement obtenu sur tout l'argent investi dans l'entreprise, qu'il vienne des actionnaires ou des prêteurs.",
+   "champs": [
+    "roic"
+   ]
+  },
+  {
+   "id": "marge_brute",
+   "nom": "Marge brute",
+   "categorie": "Rentabilité",
+   "sens": "haut",
+   "mauvais": 0.2,
+   "bon": 0.5,
+   "format": "pct",
+   "formule": "Bénéfice brut ÷ revenus",
+   "explication": "Ce qui reste de chaque dollar de vente après le coût direct du produit ou du service.",
+   "champs": [
+    "marge_brute",
+    "benefice_brut_cad_m",
+    "revenus_annuels_cad_m"
+   ]
+  },
+  {
+   "id": "marge_exploitation",
+   "nom": "Marge d'exploitation",
+   "categorie": "Rentabilité",
+   "sens": "haut",
+   "mauvais": 0.05,
+   "bon": 0.25,
+   "format": "pct",
+   "formule": "Résultat d'exploitation ÷ revenus",
+   "explication": "Ce qui reste de chaque dollar de vente après toutes les dépenses courantes, avant intérêts et impôts.",
+   "champs": [
+    "resultat_exploitation_ttm_cad_m",
+    "revenus_ttm_cad_m"
+   ]
+  },
+  {
+   "id": "marge_nette",
+   "nom": "Marge nette",
+   "categorie": "Rentabilité",
+   "sens": "haut",
+   "mauvais": 0.02,
+   "bon": 0.15,
+   "format": "pct",
+   "formule": "Bénéfice net ÷ revenus",
+   "explication": "Le profit final qui reste pour les actionnaires sur chaque dollar de vente.",
+   "champs": [
+    "benefice_net_ttm_cad_m",
+    "revenus_ttm_cad_m"
+   ]
+  },
+  {
+   "id": "marge_fcf",
+   "nom": "Marge FCF",
+   "categorie": "Rentabilité",
+   "sens": "haut",
+   "mauvais": 0.03,
+   "bon": 0.2,
+   "format": "pct",
+   "formule": "Flux de trésorerie libre (FCF) ÷ revenus",
+   "explication": "L'argent comptant réellement disponible sur chaque dollar de vente, après les investissements.",
+   "champs": [
+    "marge_fcf",
+    "fcf_ttm_cad_m",
+    "revenus_ttm_cad_m"
+   ]
+  },
+  {
+   "id": "croissance_revenus",
+   "nom": "Croissance des revenus (3 ans)",
+   "categorie": "Croissance",
+   "sens": "haut",
+   "mauvais": 0.0,
+   "bon": 0.15,
+   "format": "pct",
+   "formule": "Croissance annuelle moyenne (composée) des revenus sur 3 ans",
+   "explication": "La vitesse à laquelle les ventes augmentent chaque année.",
+   "champs": [
+    "croissance_revenus_2025",
+    "croissance_revenus_2024",
+    "croissance_revenus_2023",
+    "croissance_revenus_3ans"
+   ]
+  },
+  {
+   "id": "croissance_bpa",
+   "nom": "Croissance du BPA (3 ans)",
+   "categorie": "Croissance",
+   "sens": "haut",
+   "mauvais": 0.0,
+   "bon": 0.15,
+   "format": "pct",
+   "formule": "Croissance annuelle composée du bénéfice par action entre le plus ancien et le plus récent exercice disponibles (3 ans au maximum)",
+   "explication": "La vitesse à laquelle le profit par action augmente ; c'est ce qui fait monter le titre à long terme.",
+   "champs": [
+    "bpa_recent",
+    "bpa_ancien",
+    "croissance_bpa"
+   ]
+  },
+  {
+   "id": "croissance_organique",
+   "nom": "Croissance organique",
+   "categorie": "Croissance",
+   "sens": "haut",
+   "mauvais": 0.0,
+   "bon": 0.08,
+   "format": "pct",
+   "formule": "Croissance des revenus sans les acquisitions ni l'effet des devises",
+   "explication": "La croissance que l'entreprise produit par elle-même, sans acheter d'autres entreprises.",
+   "champs": [
+    "croissance_organique_recente"
+   ]
+  },
+  {
+   "id": "dette_capitaux_propres",
+   "nom": "Dette / capitaux propres",
+   "categorie": "Santé financière",
+   "sens": "bas",
+   "mauvais": 1.5,
+   "bon": 0.3,
+   "format": "x",
+   "formule": "Dette totale ÷ capitaux propres",
+   "explication": "Combien l'entreprise a emprunté par rapport à l'argent des actionnaires.",
+   "champs": [
+    "dette_capitaux_propres",
+    "dette_totale_cad_m",
+    "capitaux_propres_cad_m"
+   ]
+  },
+  {
+   "id": "dette_fcf",
+   "nom": "Dette / FCF",
+   "categorie": "Santé financière",
+   "sens": "bas",
+   "mauvais": 6.0,
+   "bon": 1.0,
+   "format": "ans",
+   "formule": "Dette totale ÷ flux de trésorerie libre annuel",
+   "explication": "Le nombre d'années qu'il faudrait pour rembourser toute la dette avec l'argent généré.",
+   "champs": [
+    "dette_fcf",
+    "dette_totale_cad_m",
+    "fcf_ttm_cad_m"
+   ]
+  },
+  {
+   "id": "couverture_interets",
+   "nom": "Couverture des intérêts",
+   "categorie": "Santé financière",
+   "sens": "haut",
+   "mauvais": 2.0,
+   "bon": 10.0,
+   "format": "x",
+   "formule": "Résultat d'exploitation ÷ charges d'intérêts",
+   "explication": "Combien de fois le profit d'exploitation couvre les intérêts de la dette.",
+   "champs": [
+    "couverture_interets"
+   ]
+  },
+  {
+   "id": "ratio_liquidite",
+   "nom": "Ratio de liquidité",
+   "categorie": "Santé financière",
+   "sens": "haut",
+   "mauvais": 0.8,
+   "bon": 2.0,
+   "format": "x",
+   "formule": "Actifs à court terme ÷ passifs à court terme",
+   "explication": "La capacité de payer les factures de la prochaine année avec ce que l'entreprise possède déjà.",
+   "champs": [
+    "ratio_liquidite"
+   ]
+  },
+  {
+   "id": "altman_z",
+   "nom": "Altman Z",
+   "categorie": "Santé financière",
+   "sens": "haut",
+   "mauvais": 1.8,
+   "bon": 3.0,
+   "format": "nombre",
+   "formule": "Score combinant fonds de roulement, bénéfices accumulés, résultat d'exploitation, capitalisation et ventes",
+   "explication": "Un indicateur du risque de faillite : sous 1,81 c'est dangereux, au-dessus de 3 c'est solide.",
+   "champs": [
+    "altman_z"
+   ]
+  },
+  {
+   "id": "piotroski_f",
+   "nom": "Piotroski F",
+   "categorie": "Santé financière",
+   "sens": "haut",
+   "mauvais": 3,
+   "bon": 8,
+   "format": "nombre",
+   "formule": "Nombre de tests réussis sur 9 (rentabilité, endettement, efficacité)",
+   "explication": "Une note sur 9 qui mesure si la santé financière s'améliore d'une année à l'autre.",
+   "champs": [
+    "piotroski_f"
+   ]
+  },
+  {
+   "id": "pe",
+   "nom": "P/E (cours / bénéfice)",
+   "categorie": "Valorisation",
+   "sens": "bas",
+   "mauvais": 35,
+   "bon": 12,
+   "format": "x",
+   "formule": "Prix de l'action ÷ bénéfice par action",
+   "explication": "Le nombre d'années de profit qu'on paie pour acheter l'action ; plus c'est bas, moins c'est cher.",
+   "champs": [
+    "pe"
+   ]
+  },
+  {
+   "id": "pe_prevu",
+   "nom": "P/E prévisionnel",
+   "categorie": "Valorisation",
+   "sens": "bas",
+   "mauvais": 30,
+   "bon": 12,
+   "format": "x",
+   "formule": "Prix de l'action ÷ bénéfice par action attendu par les analystes pour les 12 prochains mois",
+   "explication": "Comme le P/E, mais avec le profit attendu l'an prochain plutôt que celui de l'an dernier ; utile quand le profit récent est déformé.",
+   "champs": [
+    "pe_prevu"
+   ]
+  },
+  {
+   "id": "p_fcf",
+   "nom": "P/FCF",
+   "categorie": "Valorisation",
+   "sens": "bas",
+   "mauvais": 30,
+   "bon": 10,
+   "format": "x",
+   "formule": "Capitalisation boursière ÷ flux de trésorerie libre revenant aux actionnaires",
+   "explication": "Le nombre d'années d'argent comptant généré qu'on paie pour acheter l'action ; sous 20, le prix est jugé raisonnable.",
+   "champs": [
+    "capitalisation_cad_m",
+    "fcf_actionnaires_cad_m",
+    "fcf_ttm_cad_m"
+   ]
+  },
+  {
+   "id": "pb",
+   "nom": "P/B (cours / valeur comptable)",
+   "categorie": "Valorisation",
+   "sens": "bas",
+   "mauvais": 5,
+   "bon": 1,
+   "format": "x",
+   "formule": "Capitalisation boursière ÷ capitaux propres",
+   "explication": "Le prix payé pour chaque dollar de valeur comptable de l'entreprise.",
+   "champs": [
+    "capitalisation_cad_m",
+    "capitaux_propres_cad_m"
+   ]
+  },
+  {
+   "id": "ev_ebit",
+   "nom": "VE / EBIT",
+   "categorie": "Valorisation",
+   "sens": "bas",
+   "mauvais": 25,
+   "bon": 8,
+   "format": "x",
+   "formule": "Valeur d'entreprise (capitalisation + dette - trésorerie) ÷ résultat d'exploitation",
+   "explication": "Le prix de toute l'entreprise, dette comprise, par rapport à son profit d'exploitation.",
+   "champs": [
+    "ev_ebit",
+    "valeur_entreprise_cad_m",
+    "resultat_exploitation_ttm_cad_m"
+   ]
+  },
+  {
+   "id": "rendement_fcf",
+   "nom": "Rendement FCF pour l'actionnaire",
+   "categorie": "Valorisation",
+   "sens": "haut",
+   "mauvais": "taux_10ans",
+   "bon": 0.08,
+   "format": "pct",
+   "formule": "FCF revenant aux actionnaires ÷ capitalisation boursière (la note 0 correspond au taux obligataire 10 ans)",
+   "explication": "L'argent comptant que l'entreprise génère par dollar investi dans l'action, à comparer avec une obligation sans risque.",
+   "champs": [
+    "fcf_actionnaires_cad_m",
+    "capitalisation_cad_m",
+    "rendement_fcf"
+   ]
+  },
+  {
+   "id": "peg",
+   "nom": "PEG",
+   "categorie": "Valorisation",
+   "sens": "bas",
+   "mauvais": 3,
+   "bon": 1,
+   "format": "x",
+   "formule": "P/E ÷ croissance annuelle du BPA en % (n.d. si le BPA ne croît pas)",
+   "explication": "Le P/E corrigé par la croissance : on accepte de payer plus cher une entreprise qui grandit vite.",
+   "champs": [
+    "pe",
+    "bpa_recent",
+    "bpa_ancien",
+    "croissance_bpa"
+   ]
+  },
+  {
+   "id": "rendement_dividende",
+   "nom": "Rendement du dividende",
+   "categorie": "Valorisation",
+   "sens": "haut",
+   "mauvais": 0.0,
+   "bon": 0.04,
+   "format": "pct",
+   "formule": "Dividende annuel par action ÷ prix de l'action",
+   "explication": "Le revenu versé chaque année en pourcentage du prix payé.",
+   "champs": [
+    "rendement_dividende"
+   ]
+  },
+  {
+   "id": "ratio_distribution",
+   "nom": "Ratio de distribution",
+   "categorie": "Valorisation",
+   "sens": "bas",
+   "mauvais": 0.9,
+   "bon": 0.4,
+   "format": "pct",
+   "formule": "Dividende par action ÷ bénéfice par action (n.d. sans dividende ou sans bénéfice)",
+   "explication": "La part du profit versée en dividende ; trop élevée, le dividende est fragile.",
+   "champs": [
+    "rendement_dividende",
+    "pe"
+   ]
+  },
+  {
+   "id": "variation_actions",
+   "nom": "Variation du nombre d'actions (1 an)",
+   "categorie": "Allocation du capital",
+   "sens": "bas",
+   "mauvais": 0.03,
+   "bon": -0.02,
+   "format": "pct",
+   "formule": "Nombre d'actions aujourd'hui ÷ nombre d'actions il y a un an - 1",
+   "explication": "Si le nombre d'actions augmente, votre part de l'entreprise diminue (dilution) ; s'il baisse, elle augmente (rachats).",
+   "champs": [
+    "variation_actions_1an"
+   ]
+  },
+  {
+   "id": "roic_plus_og",
+   "nom": "ROIC + croissance organique",
+   "categorie": "Allocation du capital",
+   "sens": "haut",
+   "mauvais": 0.12,
+   "bon": 0.25,
+   "format": "pct",
+   "formule": "ROIC + croissance organique",
+   "explication": "La mesure préférée de Mark Leonard pour juger un consolidateur : rendement du capital plus croissance interne.",
+   "champs": [
+    "roic",
+    "croissance_organique_recente"
+   ]
+  },
+  {
+   "id": "goodwill_actifs",
+   "nom": "Goodwill / actifs totaux",
+   "categorie": "Allocation du capital",
+   "sens": "bas",
+   "mauvais": 0.4,
+   "bon": 0.1,
+   "format": "pct",
+   "formule": "Goodwill (écart d'acquisition) ÷ actifs totaux",
+   "explication": "La part du bilan qui vient de primes payées lors d'acquisitions ; trop élevée, le risque de dépréciation augmente.",
+   "champs": [
+    "goodwill_m",
+    "actifs_totaux_m"
+   ]
+  },
+  {
+   "id": "conversion_fcf",
+   "nom": "Conversion FCF / bénéfice net",
+   "categorie": "Allocation du capital",
+   "sens": "haut",
+   "mauvais": 0.7,
+   "bon": 1.3,
+   "format": "x",
+   "formule": "Flux de trésorerie libre ÷ bénéfice net (n.d. en cas de perte)",
+   "explication": "Vérifie que le profit comptable se transforme bien en argent comptant.",
+   "champs": [
+    "fcf_ttm_cad_m",
+    "benefice_net_ttm_cad_m"
+   ]
+  },
+  {
+   "id": "rendement_6mois",
+   "nom": "Rendement sur 6 mois",
+   "categorie": "Momentum et risque",
+   "sens": "haut",
+   "mauvais": -0.2,
+   "bon": 0.3,
+   "format": "pct",
+   "formule": "Prix actuel ÷ prix il y a 6 mois - 1",
+   "explication": "La performance récente du titre en Bourse.",
+   "champs": [
+    "rendement_6mois"
+   ]
+  },
+  {
+   "id": "ecart_mm200",
+   "nom": "Écart avec la moyenne mobile 200 jours",
+   "categorie": "Momentum et risque",
+   "sens": "haut",
+   "mauvais": -0.1,
+   "bon": 0.1,
+   "format": "pct",
+   "formule": "Prix actuel ÷ moyenne des 200 derniers jours de Bourse - 1",
+   "explication": "Indique si le titre est au-dessus (tendance haussière) ou en dessous de sa tendance de fond.",
+   "champs": [
+    "ecart_mm200"
+   ]
+  },
+  {
+   "id": "volatilite",
+   "nom": "Volatilité annualisée",
+   "categorie": "Momentum et risque",
+   "sens": "bas",
+   "mauvais": 0.5,
+   "bon": 0.15,
+   "format": "pct",
+   "formule": "Écart-type des rendements quotidiens sur 1 an × √252",
+   "explication": "L'ampleur des variations du prix ; plus c'est élevé, plus le titre bouge fort.",
+   "champs": [
+    "volatilite"
+   ]
+  },
+  {
+   "id": "beta",
+   "nom": "Bêta",
+   "categorie": "Momentum et risque",
+   "sens": "bas",
+   "mauvais": 1.5,
+   "bon": 0.7,
+   "format": "nombre",
+   "formule": "Sensibilité du titre aux mouvements du marché",
+   "explication": "Un bêta de 1 bouge comme le marché ; au-dessus, le titre amplifie les hausses et les baisses.",
+   "champs": [
+    "beta"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+/* assistant.css : bulle flottante de l'assistant, en bas à droite de toutes les pages. */
+.assistant { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: 0.7rem; }
+.assistant-bulle {
+  background: var(--accent); color: #000; border: none; font-weight: 800; padding: 0.85rem 1.3rem; border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(105, 219, 124, 0.35); transition: var(--transition); animation: flotter 3.2s ease-in-out infinite;
+}
+.assistant-bulle:hover { background: var(--lime); transform: scale(1.06); }
+.assistant-bulle.ronde { width: 3.4rem; height: 3.4rem; padding: 0; font-size: 1.5rem; }
+@keyframes flotter { 50% { transform: translateY(-5px); } }
+.assistant-panneau {
+  width: min(390px, calc(100vw - 2rem)); height: min(560px, calc(100vh - 7rem)); display: flex; flex-direction: column;
+  background: var(--carte); border: 1px solid var(--sarcelle); border-radius: 18px; overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8); animation: apparition 220ms ease both;
+}
+.assistant-entete { display: flex; align-items: center; gap: 0.6rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--bord); background: var(--carte-2); }
+.assistant-fil { flex: 1; overflow-y: auto; padding: 0.9rem; display: flex; flex-direction: column; gap: 0.55rem; min-height: 180px; }
+.assistant-message { flex-shrink: 0; max-width: 92%; padding: 0.6rem 0.8rem; border-radius: 14px; font-size: 0.9rem; white-space: pre-wrap; animation: apparition 220ms ease both; }
+.assistant-message.assistant { background: var(--carte-2); border: 1px solid var(--bord); align-self: flex-start; border-bottom-left-radius: 4px; }
+.assistant-message.moi { background: var(--accent); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 600; }
+.assistant-message.attente { display: flex; gap: 5px; }
+.assistant-message.attente i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pouls 900ms ease-in-out infinite; }
+.assistant-message.attente i:nth-child(2) { animation-delay: 150ms; }
+.assistant-message.attente i:nth-child(3) { animation-delay: 300ms; }
+.assistant-saisie { flex-shrink: 0; display: flex; gap: 0.5rem; padding: 0.7rem; border-top: 1px solid var(--bord); }
+.assistant-reglages { padding: 1rem; display: flex; flex-direction: column; gap: 0.4rem; overflow-y: auto; }
+.assistant-csv { margin-top: 0.6rem; white-space: normal; }
+.assistant-compris { margin-top: 0.6rem; padding: 0.6rem; border: 1px dashed var(--sarcelle); border-radius: 10px; }

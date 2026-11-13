@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "analyseur",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "streamlit", "run", "analyseur/app.py", "--server.port", "8501", "--server.headless", "true"],
-      "port": 8501
+      "name": "theanalyst",
+      "runtimeExecutable": "C:/Program Files/nodejs/node.exe",
+      "runtimeArgs": ["theANALYST/node_modules/vite/bin/vite.js", "theANALYST", "--port", "5173", "--strictPort"],
+      "port": 5173
     }
   ]
 }
