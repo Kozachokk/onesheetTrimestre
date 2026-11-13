@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { analyserCsvCourtier } from '../../lib/csvCourtier.js';
+import { CSV_DEMO, analyserCsvCourtier } from '../../lib/csvCourtier.js';
 
 /**
  * Import du CSV du courtier. Le fichier est lu dans le navigateur ; on montre ce qui a été compris
@@ -26,6 +26,8 @@ export default function ImportCsv({ avecIA, onAjuster }) {
       <button type="button" className="bouton plein" onClick={() => fichier.current.click()}>Importer le CSV de mon courtier</button>
       <br />
       <button type="button" className="lien-bouton petit" onClick={() => setAide((a) => !a)}>Comment exporter en CSV ?</button>
+      {' · '}
+      <button type="button" className="lien-bouton petit" onClick={() => setAnalyse({ ...analyserCsvCourtier(CSV_DEMO), demo: true })}>Essayer avec un exemple</button>
       {aide && (
         <div className="petit" style={{ marginTop: '0.4rem' }}>
           <b>Wealthsimple (sur le web seulement)</b>
@@ -42,7 +44,7 @@ export default function ImportCsv({ avecIA, onAjuster }) {
       {analyse?.erreur && <p style={{ color: 'var(--alerte)' }} className="petit">{analyse.erreur}</p>}
       {analyse && !analyse.erreur && (
         <div className="assistant-compris">
-          <b>Voici ce que j’ai compris</b> <span className="discret petit">({analyse.type})</span>
+          <b>Voici ce que j’ai compris</b> <span className="discret petit">({analyse.type}{analyse.demo ? ', portefeuille fictif de démonstration' : ''})</span>
           <table className="donnees" style={{ fontSize: '0.8rem' }}>
             <thead><tr><th>Titre</th><th>Poids</th></tr></thead>
             <tbody>

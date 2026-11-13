@@ -27,7 +27,8 @@ export default function ReglagesAssistant({ onFermer }) {
         placeholder={reglages.cle ? 'Une clé est enregistrée (masquée)' : 'Colle ta clé ici'} />
       <p className="petit discret">
         La clé reste dans ce navigateur. Elle n’est jamais affichée ni écrite dans le code, et n’est envoyée qu’à {FOURNISSEURS[reglages.fournisseur].nom}.
-        Sans clé, l’assistant répond par mots-clés à partir des données du site.
+        Sans clé, l’assistant fonctionne en mode démo : il répond à partir des données du site, sans IA.
+        Un abonnement Claude Pro, ChatGPT Plus ou Gemini ne donne pas de clé : elle se crée à part, sur la console du fournisseur.
       </p>
       <div className="rangee">
         <button type="button" className="bouton plein" onClick={enregistrer}>Enregistrer</button>

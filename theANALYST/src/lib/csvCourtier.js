@@ -7,6 +7,16 @@
 import { decouperLigneCsv } from './donnees.js';
 import { nombre } from './format.js';
 
+/** Portefeuille fictif, pour montrer l'import sans fichier réel. */
+export const CSV_DEMO = [
+  'Account Type,Account Number,Symbol,Name,Quantity,Market Value',
+  'TFSA,DEMO-0001,XEQT,iShares Core Equity ETF Portfolio,120,4300',
+  'TFSA,DEMO-0001,CSU,Constellation Software,1,3500',
+  'FHSA,DEMO-0002,CASH,Global X High Interest Savings ETF,60,3000',
+  'RRSP,DEMO-0003,WSP,WSP Global,10,1850',
+  'RRSP,DEMO-0003,VFV,Vanguard S&P 500 Index ETF,12,1750',
+].join('\n');
+
 const normaliser = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
 
 // L'ordre compte : CELIAPP avant CELI, FHSA avant TFSA.

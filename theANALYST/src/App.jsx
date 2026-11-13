@@ -4,6 +4,7 @@
  */
 import { FournisseurProfil, useProfil } from './etat/ProfilContext.jsx';
 import { useRoute } from './etat/navigation.js';
+import { useLangue } from './etat/langue.js';
 import BarreHaut from './components/mise-en-page/BarreHaut.jsx';
 import PiedDePage from './components/mise-en-page/PiedDePage.jsx';
 import BulleAssistant from './components/assistant/BulleAssistant.jsx';
@@ -19,11 +20,12 @@ const PAGES = { profil: PageProfil, classement: PageClassement, comparer: PageCo
 function Site() {
   const { pret, entre } = useProfil();
   const route = useRoute();
+  const [langue, basculerLangue] = useLangue();
   const page = !entre || !(route.page in PAGES || route.page === 'entreprise') ? 'profil' : route.page;
   const Page = PAGES[page];
   return (
     <>
-      <BarreHaut page={page} />
+      <BarreHaut page={page} langue={langue} basculerLangue={basculerLangue} />
       {!pret ? <div className="chargement">Chargement des données…</div>
         : page === 'entreprise' ? <PageEntreprise key={route.parametre} ticker={route.parametre.toUpperCase()} />
           : <Page />}

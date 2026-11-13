@@ -7,10 +7,12 @@ import { CRITERES, PROFILS, classer, expliquerEcart, gagnant, poidsDuProfil, seu
 import { sectionsDetail } from '../src/lib/detail.js';
 import { ficheQualitative } from '../src/lib/qualitatif.js';
 import { graphiquesDuTitre } from '../src/lib/series.js';
-import { ajusterSelonPortefeuille, analyserCsvCourtier, resumePourIA } from '../src/lib/csvCourtier.js';
+import { CSV_DEMO, ajusterSelonPortefeuille, analyserCsvCourtier, resumePourIA } from '../src/lib/csvCourtier.js';
 import { REFUS_CONSEIL, profilDepuisTexte, repondreEntreprise } from '../src/lib/assistant/motsCles.js';
 import { csvClassement, justification } from '../src/lib/rapport.js';
 import { formater } from '../src/lib/format.js';
+import * as achats from '../src/lib/acquisitions.js';
+import { traduire } from '../src/lib/traduction/traducteurDom.js';
 
 const SEUILS = seuilsParDefaut(config.taux_obligataire_10ans);
 const ZERO = Object.fromEntries(DEFINITIONS.map((d) => [d.id, 0]));
@@ -150,6 +152,12 @@ describe('CSV du courtier', () => {
     expect(a.comptes).toEqual(['REER']);
     expect(analyserCsvCourtier('a,b\n1,2\n').erreur).toBeTruthy();
   });
+  it('l\'exemple de démonstration est lisible', () => {
+    const a = analyserCsvCourtier(CSV_DEMO);
+    expect(a.titres).toHaveLength(5);
+    expect([...a.comptes].sort()).toEqual(['CELI', 'CELIAPP', 'REER']);
+    expect(a.titres.reduce((s, t) => s + t.poids, 0)).toBeCloseTo(1);
+  });
   it('ajuste les poids et explique pourquoi', () => {
     const { poids, explication } = ajusterSelonPortefeuille(poidsDuProfil(profil('croissance')), analyserCsvCourtier(positions));
     expect(poids.dette_fcf).toBeGreaterThan(10);
@@ -166,6 +174,7 @@ describe('assistant sans clé', () => {
     expect(poids.rendement_dividende).toBeGreaterThan(poids.p_fcf);
     expect(explication).toMatch(/horizon long/);
     expect(profilDepuisTexte('bonjour').poids).toBeNull();
+    expect(profilDepuisTexte('Retirement in 25 years, cautious, I want dividends').poids.rendement_dividende).toBeGreaterThan(20);
   });
   it('répond à partir des données, avoue son ignorance et ne conseille jamais', () => {
     const res = classement('buffett');
@@ -176,5 +185,44 @@ describe('assistant sans clé', () => {
     expect(repondreEntreprise('Qui dirige ?', base.CSU, r, { nom: 'Mark Miller', titre: 'Président' })).toMatch(/Mark Miller/);
     expect(repondreEntreprise('Quel est le nom du chien du PDG ?', base.CSU, r, { nom: 'Mark Miller', titre: 'Président' })).toMatch(/Je ne sais pas/);
     expect(repondreEntreprise('Y a-t-il des litiges ?', base.TOI, res.find((x) => x.ticker === 'TOI'))).toMatch(/Tax/);
+  });
+});
+
+describe('sous-compagnies (entreprises achetées)', () => {
+  it('chaque titre a sa liste d\'achats et ses fiches', () => {
+    expect(Object.keys(achats.DONNEES.LISTES).sort()).toEqual(['ARE', 'CSU', 'TFII', 'TOI', 'WSP']);
+    expect(achats.DONNEES.LISTES.CSU).toHaveLength(15);
+    expect(achats.fichesAvecRatios('CSU')).toHaveLength(10);
+    const synchronoss = achats.fichesAvecRatios('CSU').find((f) => f.cible === 'Synchronoss Technologies');
+    expect(synchronoss.prixSurRevenus).toBeCloseTo(1.78);
+    expect(synchronoss.prixSurBaiia).toBeCloseTo(6.1);
+  });
+  it('les estimations restent identifiées comme peu fiables', () => {
+    const v = achats.verdict();
+    expect(v.total).toBe(9);
+    expect(v.reussis).toBe(2);
+    expect(v.niveau).toBe('rouge');
+    expect(achats.estimations('TOI')).toHaveLength(0);
+  });
+});
+
+describe('traduction anglaise de démonstration', () => {
+  it('traduit les textes connus et garde les espaces autour', () => {
+    expect(traduire('Classement')).toBe('Ranking');
+    expect(traduire('  Mon profil ')).toBe('  My profile ');
+    expect(traduire('Étape 1 · avant d’entrer')).toBe('Step 1 · before entering');
+    expect(traduire('Dette = 5,2 ans de FCF')).toBe('Debt = 5,2 years of FCF');
+    expect(traduire('Pourquoi WSP Global est en tête')).toBe('Why WSP Global is in the lead');
+  });
+  it('traduit les explications des ratios et les réponses de l\'assistant', () => {
+    expect(traduire('Bénéfice net ÷ capitaux propres')).toBe("Net income ÷ shareholders' equity");
+    expect(traduire('Dette / FCF : 4,7 ans (source : stockanalysis.com, 2026-11-12).')).toBe('Debt / FCF: 4,7 yrs (source: stockanalysis.com, 2026-11-12).');
+    expect(traduire("C'est réglé. J'ai compris un horizon long, une faible tolérance au risque : j'ai donc mis l'accent sur dividende et solidité (peu de dette)."))
+      .toBe('Done. I understood a long horizon, a low risk tolerance: so I emphasised dividend, strength (low debt).');
+  });
+  it('laisse tels quels les chiffres, les noms et les textes inconnus', () => {
+    expect(traduire('51')).toBeNull();
+    expect(traduire('WSP')).toBeNull();
+    expect(traduire('Constellation Software')).toBeNull();
   });
 });

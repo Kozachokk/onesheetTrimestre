@@ -1,5 +1,5 @@
 {
- "_commentaire": "Définition des ratios. 'mauvais' donne la note 0 et 'bon' la note 100 (linéaire entre les deux). Si mauvais > bon, plus bas = mieux. Formats : pct, x, ans, nombre. La valeur spéciale \"taux_10ans\" reprend le taux obligataire des réglages. Les formules de calcul sont dans ratios.py (même identifiant).",
+ "_commentaire": "Définition des ratios. 'mauvais' donne la note 0 et 'bon' la note 100 (linéaire entre les deux). Si mauvais > bon, plus bas = mieux. Formats : pct, x, ans, nombre. La valeur spéciale \"taux_10ans\" reprend le taux obligataire des réglages. Les formules de calcul sont dans ratios.py (même identifiant). Les champs _en servent à la version anglaise de démonstration. Les champs _en servent à la version anglaise de démonstration. Les champs _en servent à la version anglaise de démonstration.",
  "categories": [
   "Rentabilité",
   "Croissance",
@@ -23,7 +23,9 @@
     "roe",
     "benefice_net_ttm_cad_m",
     "capitaux_propres_cad_m"
-   ]
+   ],
+   "formule_en": "Net income ÷ shareholders' equity",
+   "explication_en": "What the company earns for each dollar shareholders have left in it."
   },
   {
    "id": "roic",
@@ -37,7 +39,9 @@
    "explication": "Le rendement obtenu sur tout l'argent investi dans l'entreprise, qu'il vienne des actionnaires ou des prêteurs.",
    "champs": [
     "roic"
-   ]
+   ],
+   "formule_en": "After-tax operating profit ÷ invested capital (debt + equity)",
+   "explication_en": "The return earned on all the money invested in the company, whether from shareholders or lenders."
   },
   {
    "id": "marge_brute",
@@ -53,7 +57,9 @@
     "marge_brute",
     "benefice_brut_cad_m",
     "revenus_annuels_cad_m"
-   ]
+   ],
+   "formule_en": "Gross profit ÷ revenue",
+   "explication_en": "What is left of each sales dollar after the direct cost of the product or service."
   },
   {
    "id": "marge_exploitation",
@@ -68,7 +74,9 @@
    "champs": [
     "resultat_exploitation_ttm_cad_m",
     "revenus_ttm_cad_m"
-   ]
+   ],
+   "formule_en": "Operating income ÷ revenue",
+   "explication_en": "What is left of each sales dollar after all ongoing expenses, before interest and taxes."
   },
   {
    "id": "marge_nette",
@@ -83,7 +91,9 @@
    "champs": [
     "benefice_net_ttm_cad_m",
     "revenus_ttm_cad_m"
-   ]
+   ],
+   "formule_en": "Net income ÷ revenue",
+   "explication_en": "The final profit left for shareholders on each sales dollar."
   },
   {
    "id": "marge_fcf",
@@ -99,7 +109,9 @@
     "marge_fcf",
     "fcf_ttm_cad_m",
     "revenus_ttm_cad_m"
-   ]
+   ],
+   "formule_en": "Free cash flow (FCF) ÷ revenue",
+   "explication_en": "The cash actually available on each sales dollar, after investments."
   },
   {
    "id": "croissance_revenus",
@@ -116,7 +128,9 @@
     "croissance_revenus_2024",
     "croissance_revenus_2023",
     "croissance_revenus_3ans"
-   ]
+   ],
+   "formule_en": "Average (compound) annual revenue growth over 3 years",
+   "explication_en": "How fast sales grow each year."
   },
   {
    "id": "croissance_bpa",
@@ -132,7 +146,9 @@
     "bpa_recent",
     "bpa_ancien",
     "croissance_bpa"
-   ]
+   ],
+   "formule_en": "Compound annual growth of earnings per share between the oldest and latest available fiscal years (3 years at most)",
+   "explication_en": "How fast profit per share grows; that is what lifts the stock over the long run."
   },
   {
    "id": "croissance_organique",
@@ -146,7 +162,9 @@
    "explication": "La croissance que l'entreprise produit par elle-même, sans acheter d'autres entreprises.",
    "champs": [
     "croissance_organique_recente"
-   ]
+   ],
+   "formule_en": "Revenue growth excluding acquisitions and currency effects",
+   "explication_en": "The growth the company generates on its own, without buying other companies."
   },
   {
    "id": "dette_capitaux_propres",
@@ -162,7 +180,9 @@
     "dette_capitaux_propres",
     "dette_totale_cad_m",
     "capitaux_propres_cad_m"
-   ]
+   ],
+   "formule_en": "Total debt ÷ shareholders' equity",
+   "explication_en": "How much the company has borrowed compared with shareholders' money."
   },
   {
    "id": "dette_fcf",
@@ -178,7 +198,9 @@
     "dette_fcf",
     "dette_totale_cad_m",
     "fcf_ttm_cad_m"
-   ]
+   ],
+   "formule_en": "Total debt ÷ annual free cash flow",
+   "explication_en": "The number of years it would take to repay all the debt with the cash generated."
   },
   {
    "id": "couverture_interets",
@@ -192,7 +214,9 @@
    "explication": "Combien de fois le profit d'exploitation couvre les intérêts de la dette.",
    "champs": [
     "couverture_interets"
-   ]
+   ],
+   "formule_en": "Operating income ÷ interest expense",
+   "explication_en": "How many times operating profit covers the interest on the debt."
   },
   {
    "id": "ratio_liquidite",
@@ -206,7 +230,9 @@
    "explication": "La capacité de payer les factures de la prochaine année avec ce que l'entreprise possède déjà.",
    "champs": [
     "ratio_liquidite"
-   ]
+   ],
+   "formule_en": "Current assets ÷ current liabilities",
+   "explication_en": "The ability to pay next year's bills with what the company already owns."
   },
   {
    "id": "altman_z",
@@ -220,7 +246,9 @@
    "explication": "Un indicateur du risque de faillite : sous 1,81 c'est dangereux, au-dessus de 3 c'est solide.",
    "champs": [
     "altman_z"
-   ]
+   ],
+   "formule_en": "Score combining working capital, retained earnings, operating income, market cap and sales",
+   "explication_en": "A bankruptcy-risk indicator: below 1.81 is dangerous, above 3 is solid."
   },
   {
    "id": "piotroski_f",
@@ -234,7 +262,9 @@
    "explication": "Une note sur 9 qui mesure si la santé financière s'améliore d'une année à l'autre.",
    "champs": [
     "piotroski_f"
-   ]
+   ],
+   "formule_en": "Number of tests passed out of 9 (profitability, leverage, efficiency)",
+   "explication_en": "A score out of 9 that measures whether financial health is improving year over year."
   },
   {
    "id": "pe",
@@ -248,7 +278,9 @@
    "explication": "Le nombre d'années de profit qu'on paie pour acheter l'action ; plus c'est bas, moins c'est cher.",
    "champs": [
     "pe"
-   ]
+   ],
+   "formule_en": "Share price ÷ earnings per share",
+   "explication_en": "The number of years of profit you pay to buy the stock; the lower, the cheaper."
   },
   {
    "id": "pe_prevu",
@@ -262,7 +294,9 @@
    "explication": "Comme le P/E, mais avec le profit attendu l'an prochain plutôt que celui de l'an dernier ; utile quand le profit récent est déformé.",
    "champs": [
     "pe_prevu"
-   ]
+   ],
+   "formule_en": "Share price ÷ earnings per share expected by analysts for the next 12 months",
+   "explication_en": "Like the P/E, but using next year's expected profit instead of last year's; useful when recent profit is distorted."
   },
   {
    "id": "p_fcf",
@@ -278,7 +312,9 @@
     "capitalisation_cad_m",
     "fcf_actionnaires_cad_m",
     "fcf_ttm_cad_m"
-   ]
+   ],
+   "formule_en": "Market cap ÷ free cash flow attributable to shareholders",
+   "explication_en": "The number of years of cash generated you pay to buy the stock; below 20, the price is considered reasonable."
   },
   {
    "id": "pb",
@@ -293,7 +329,9 @@
    "champs": [
     "capitalisation_cad_m",
     "capitaux_propres_cad_m"
-   ]
+   ],
+   "formule_en": "Market cap ÷ shareholders' equity",
+   "explication_en": "The price paid for each dollar of the company's book value."
   },
   {
    "id": "ev_ebit",
@@ -309,7 +347,9 @@
     "ev_ebit",
     "valeur_entreprise_cad_m",
     "resultat_exploitation_ttm_cad_m"
-   ]
+   ],
+   "formule_en": "Enterprise value (market cap + debt − cash) ÷ operating income",
+   "explication_en": "The price of the whole company, debt included, relative to its operating profit."
   },
   {
    "id": "rendement_fcf",
@@ -325,7 +365,9 @@
     "fcf_actionnaires_cad_m",
     "capitalisation_cad_m",
     "rendement_fcf"
-   ]
+   ],
+   "formule_en": "FCF attributable to shareholders ÷ market cap (a grade of 0 matches the 10-year bond yield)",
+   "explication_en": "The cash the company generates per dollar invested in the stock, to compare with a risk-free bond."
   },
   {
    "id": "peg",
@@ -342,7 +384,9 @@
     "bpa_recent",
     "bpa_ancien",
     "croissance_bpa"
-   ]
+   ],
+   "formule_en": "P/E ÷ annual EPS growth in % (n/a if EPS is not growing)",
+   "explication_en": "The P/E adjusted for growth: we accept paying more for a company that grows fast."
   },
   {
    "id": "rendement_dividende",
@@ -356,7 +400,9 @@
    "explication": "Le revenu versé chaque année en pourcentage du prix payé.",
    "champs": [
     "rendement_dividende"
-   ]
+   ],
+   "formule_en": "Annual dividend per share ÷ share price",
+   "explication_en": "The income paid each year as a percentage of the price paid."
   },
   {
    "id": "ratio_distribution",
@@ -371,7 +417,9 @@
    "champs": [
     "rendement_dividende",
     "pe"
-   ]
+   ],
+   "formule_en": "Dividend per share ÷ earnings per share (n/a without a dividend or without earnings)",
+   "explication_en": "The share of profit paid as a dividend; too high, and the dividend is fragile."
   },
   {
    "id": "variation_actions",
@@ -385,7 +433,9 @@
    "explication": "Si le nombre d'actions augmente, votre part de l'entreprise diminue (dilution) ; s'il baisse, elle augmente (rachats).",
    "champs": [
     "variation_actions_1an"
-   ]
+   ],
+   "formule_en": "Share count today ÷ share count a year ago − 1",
+   "explication_en": "If the share count rises, your stake in the company shrinks (dilution); if it falls, it grows (buybacks)."
   },
   {
    "id": "roic_plus_og",
@@ -400,7 +450,9 @@
    "champs": [
     "roic",
     "croissance_organique_recente"
-   ]
+   ],
+   "formule_en": "ROIC + organic growth",
+   "explication_en": "Mark Leonard's favourite measure to judge a consolidator: return on capital plus internal growth."
   },
   {
    "id": "goodwill_actifs",
@@ -415,7 +467,9 @@
    "champs": [
     "goodwill_m",
     "actifs_totaux_m"
-   ]
+   ],
+   "formule_en": "Goodwill ÷ total assets",
+   "explication_en": "The share of the balance sheet that comes from premiums paid in acquisitions; too high, and the risk of a write-down rises."
   },
   {
    "id": "conversion_fcf",
@@ -430,7 +484,9 @@
    "champs": [
     "fcf_ttm_cad_m",
     "benefice_net_ttm_cad_m"
-   ]
+   ],
+   "formule_en": "Free cash flow ÷ net income (n/a in case of a loss)",
+   "explication_en": "Checks that accounting profit really turns into cash."
   },
   {
    "id": "rendement_6mois",
@@ -444,7 +500,9 @@
    "explication": "La performance récente du titre en Bourse.",
    "champs": [
     "rendement_6mois"
-   ]
+   ],
+   "formule_en": "Current price ÷ price 6 months ago − 1",
+   "explication_en": "The stock's recent market performance."
   },
   {
    "id": "ecart_mm200",
@@ -458,7 +516,9 @@
    "explication": "Indique si le titre est au-dessus (tendance haussière) ou en dessous de sa tendance de fond.",
    "champs": [
     "ecart_mm200"
-   ]
+   ],
+   "formule_en": "Current price ÷ average of the last 200 trading days − 1",
+   "explication_en": "Shows whether the stock is above (uptrend) or below its underlying trend."
   },
   {
    "id": "volatilite",
@@ -472,7 +532,9 @@
    "explication": "L'ampleur des variations du prix ; plus c'est élevé, plus le titre bouge fort.",
    "champs": [
     "volatilite"
-   ]
+   ],
+   "formule_en": "Standard deviation of daily returns over 1 year × √252",
+   "explication_en": "How much the price moves; the higher, the more the stock swings."
   },
   {
    "id": "beta",
@@ -486,7 +548,9 @@
    "explication": "Un bêta de 1 bouge comme le marché ; au-dessus, le titre amplifie les hausses et les baisses.",
    "champs": [
     "beta"
-   ]
+   ],
+   "formule_en": "Sensitivity of the stock to market moves",
+   "explication_en": "A beta of 1 moves like the market; above that, the stock amplifies rises and falls."
   }
  ]
 }

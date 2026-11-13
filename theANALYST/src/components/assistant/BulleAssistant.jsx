@@ -9,6 +9,14 @@ import ReglagesAssistant from './ReglagesAssistant.jsx';
 import ImportCsv from './ImportCsv.jsx';
 import '../../styles/assistant.css';
 
+// Exemples cliquables : ils permettent une démonstration complète sans clé d'IA
+const SUGGESTIONS = {
+  profil: ['Retraite dans 25 ans, prudent, je veux des dividendes', 'Jeune, long terme, j’accepte le risque pour la croissance', 'Achat d’une maison dans 3 ans, peu de risque'],
+  entreprise: ['Quelle est la dette ?', 'Quelles sont ses dernières acquisitions ?', 'Forces et faiblesses ?', 'Y a-t-il des litiges ?'],
+  general: ['Qui est en tête ?', 'Comment le pointage est-il calculé ?', 'Dette de WSP ?'],
+};
+const PAUSE_DEMO = 650; // petite attente en mode démo, pour que la réponse ne paraisse pas instantanée
+
 const INVITE_CSV = 'Importe le CSV de ton CELI, CELIAPP, REER ou REEE pour que je tienne compte de ce que tu détiens déjà.';
 
 /** Assistant en bulle flottante, visible sur toutes les pages. Son texte et son rôle changent selon la page. */
@@ -35,7 +43,10 @@ export default function BulleAssistant({ page, ticker }) {
   /** Appelle l'IA si une clé est enregistrée ; sinon, ou en cas d'échec, utilise la réponse par mots-clés. */
   async function avecIA(systeme, message, secours) {
     const r = lireReglages();
-    if (!r.cle) return { texte: null, secours: secours() };
+    if (!r.cle) {
+      await new Promise((suite) => { setTimeout(suite, PAUSE_DEMO); });
+      return { texte: null, secours: secours() };
+    }
     try {
       return { texte: await demanderIA({ ...r, systeme, message }) };
     } catch (erreur) {
@@ -70,23 +81,23 @@ export default function BulleAssistant({ page, ticker }) {
 
   function repondreGeneral(question) {
     const q = question.toLowerCase();
-    if (/acheter|vendre|devrais|recommand|conseil/.test(q)) return REFUS_CONSEIL;
+    if (/acheter|vendre|devrais|recommand|conseil|\bbuy\b|\bsell\b|should i|advice/.test(q)) return REFUS_CONSEIL;
     const cible = Object.values(entreprises).find((e) => q.includes(e.ticker.toLowerCase()) || q.includes(e.nom.toLowerCase().split(' ')[0]));
     if (cible) return repondreEntreprise(question, cible, parTicker[cible.ticker], dirigeants[cible.ticker], rangs[cible.ticker]);
-    if (/premier|en tete|meilleur|classement|gagne/.test(q.normalize('NFD').replace(/[̀-ͯ]/g, ''))) {
+    if (/premier|en tete|meilleur|classement|gagne|lead|first|\btop\b|best|ranking|win/.test(q.normalize('NFD').replace(/[̀-ͯ]/g, ''))) {
       return premier ? `Selon ton profil, ${premier.nom} est en tête avec ${Math.round(premier.score)} sur 100. Ce n’est pas une recommandation d’achat.` : 'Aucun titre n’est admissible avec ton profil actuel.';
     }
-    if (/pointage|score|calcul|methode|note/.test(q)) return 'Chaque critère reçoit une note de 0 à 100 entre un seuil « mauvais » et un seuil « bon ». Le pointage est la moyenne de ces notes, pondérée par tes curseurs. La page Méthode détaille chaque ratio.';
-    if (/profil|curseur/.test(q)) return 'Ton profil se règle avec le bouton « Mon profil », en haut à droite : choisis un profil ou bouge les curseurs, et le classement suit partout.';
+    if (/pointage|score|calcul|methode|note|method/.test(q)) return 'Chaque critère reçoit une note de 0 à 100 entre un seuil « mauvais » et un seuil « bon ». Le pointage est la moyenne de ces notes, pondérée par tes curseurs. La page Méthode détaille chaque ratio.';
+    if (/profil|curseur|slider/.test(q)) return 'Ton profil se règle avec le bouton « Mon profil », en haut à droite : choisis un profil ou bouge les curseurs, et le classement suit partout.';
     return 'Je ne sais pas : cette information n’est pas dans les données du site. Nomme un titre (ex. « dette de WSP ») ou ouvre sa fiche.';
   }
 
-  async function envoyer(evenement) {
-    evenement.preventDefault();
-    const texte = saisie.trim();
+  async function envoyer(evenement, direct) {
+    evenement?.preventDefault();
+    const texte = (direct ?? saisie).trim();
     if (!texte || occupe) return;
     setSaisie('');
-    setMessages((m) => [...m, { de: 'moi', texte }]);
+    setMessages((m) => [...m, { de: 'moi', texte, exemple: direct !== undefined }]);
     setOccupe(true);
     if (contexte === 'profil') {
       await reglerProfil(texte);
@@ -113,7 +124,7 @@ export default function BulleAssistant({ page, ticker }) {
         <div className="assistant-panneau" role="dialog" aria-label="Assistant">
           <div className="assistant-entete">
             <b>Assistant</b>
-            <span className="discret petit">{r.cle ? FOURNISSEURS[r.fournisseur].nom : 'mots-clés (sans clé)'}</span>
+            {r.cle ? <span className="discret petit">{FOURNISSEURS[r.fournisseur].nom}</span> : <span className="assistant-demo" title="Réponses calculées à partir des données du site, sans IA">Mode démo · sans IA</span>}
             <span style={{ flex: 1 }} />
             <button type="button" className="lien-bouton petit" onClick={() => setReglages((x) => !x)}>Réglages</button>
             <button type="button" className="lien-bouton" onClick={() => setOuvert(false)} aria-label="Fermer">✕</button>
@@ -122,13 +133,18 @@ export default function BulleAssistant({ page, ticker }) {
             <>
               <div className="assistant-fil">
                 {messages.map((m, i) => (
-                  <div key={`${i}-${m.de}`} className={`assistant-message ${m.de}`}>
+                  <div key={`${i}-${m.de}`} className={`assistant-message de-${m.de}`} data-sans-traduction={m.de === 'moi' && !m.exemple ? '' : undefined}>
                     {m.texte}
                     {m.csv && <ImportCsv avecIA={Boolean(r.cle)} onAjuster={ajusterAvecPortefeuille} />}
                   </div>
                 ))}
-                {occupe && <div className="assistant-message assistant attente"><i /><i /><i /></div>}
+                {occupe && <div className="assistant-message de-assistant attente"><i /><i /><i /></div>}
                 <div ref={fin} />
+              </div>
+              <div className="assistant-suggestions">
+                {SUGGESTIONS[contexte].map((exemple) => (
+                  <button key={exemple} type="button" disabled={occupe} onClick={() => envoyer(null, exemple)}>{exemple}</button>
+                ))}
               </div>
               <form className="assistant-saisie" onSubmit={envoyer}>
                 <input type="text" value={saisie} onChange={(e) => setSaisie(e.target.value)}

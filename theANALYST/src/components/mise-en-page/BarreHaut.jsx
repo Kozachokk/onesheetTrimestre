@@ -1,17 +1,10 @@
-import { useEffect, useState } from 'react';
 import { useProfil } from '../../etat/ProfilContext.jsx';
 
 const LIENS = [['classement', 'Classement'], ['hall', 'Hall des dirigeants'], ['comparer', 'Comparer'], ['methode', 'Méthode']];
 
-/** Barre du haut, présente sur toutes les pages : nom du site, navigation, bouton EN et bouton Mon profil. */
-export default function BarreHaut({ page }) {
+/** Barre du haut, présente sur toutes les pages : nom du site, navigation, bouton de langue (EN / FR) et bouton Mon profil. */
+export default function BarreHaut({ page, langue, basculerLangue }) {
   const { config, entre } = useProfil();
-  const [message, setMessage] = useState(false);
-  useEffect(() => {
-    if (!message) return undefined;
-    const t = setTimeout(() => setMessage(false), 2500);
-    return () => clearTimeout(t);
-  }, [message]);
 
   return (
     <header className="barre-haut">
@@ -22,10 +15,10 @@ export default function BarreHaut({ page }) {
         </nav>
       )}
       <div className="rangee">
-        <button type="button" className="bouton" onClick={() => setMessage(true)} title="Traduire en anglais">EN</button>
+        <button type="button" className="bouton" onClick={basculerLangue} data-sans-traduction
+          title={langue === 'en' ? 'Revenir au français' : 'Switch to English'}>{langue === 'en' ? 'FR' : 'EN'}</button>
         <a className="bouton plein" href="#/profil">Mon profil</a>
       </div>
-      {message && <div className="bulle-info" role="status">Traduction bientôt disponible</div>}
     </header>
   );
 }

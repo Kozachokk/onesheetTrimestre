@@ -15,6 +15,8 @@ import Graphique from '../components/graphiques/Graphique.jsx';
 import Repliable from '../components/commun/Repliable.jsx';
 import Source from '../components/commun/Source.jsx';
 import Barre from '../components/commun/Barre.jsx';
+import SousCompagnies from '../components/fiche/SousCompagnies.jsx';
+import { DONNEES as ACHATS } from '../lib/acquisitions.js';
 
 /** Explorateur d'origine du site : graphique interactif et tableau complet des périodes. */
 function Explorateur({ entreprise }) {
@@ -119,6 +121,10 @@ export default function PageEntreprise({ ticker }) {
           </div>
         ))}
         <p className="discret petit">Montants en dollars canadiens (1 USD = {fr(config.taux_change.USD, 2)} CAD, 1 EUR = {fr(config.taux_change.EUR, 2)} CAD). « n. d. » : la donnée n’est pas dans les sources.</p>
+      </Repliable>
+
+      <Repliable titre={`Sous-compagnies : entreprises achetées (${(ACHATS.LISTES[ticker] || []).length})`}>
+        <SousCompagnies ticker={ticker} />
       </Repliable>
 
       <Repliable titre="Fiche qualitative">
