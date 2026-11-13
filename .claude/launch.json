@@ -4,8 +4,30 @@
     {
       "name": "theanalyst",
       "runtimeExecutable": "C:/Program Files/nodejs/node.exe",
-      "runtimeArgs": ["theANALYST/node_modules/vite/bin/vite.js", "theANALYST", "--port", "5173", "--strictPort"],
+      "runtimeArgs": [
+        "theANALYST/node_modules/vite/bin/vite.js",
+        "theANALYST",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
       "port": 5173
+    },
+    {
+      "name": "theanalyst-publie",
+      "runtimeExecutable": "C:/Program Files/nodejs/node.exe",
+      "runtimeArgs": [
+        "theANALYST/node_modules/vite/bin/vite.js",
+        "preview",
+        "theANALYST",
+        "--port",
+        "4180",
+        "--strictPort",
+        "--base",
+        "/onesheetTrimestre/"
+      ],
+      "port": 4180,
+      "url": "http://localhost:4180"
     }
   ]
 }
