@@ -6,8 +6,8 @@ const emoji = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u;
 const complete = () => construireProposition({ nomEquipe: 'Equipe test', video: 'https://youtu.be/abc123' });
 
 describe('proposition d\'indice (trimestre.index-proposal/v2)', () => {
-  it('propose WSP, CSU et TOI, sans TFII ni ARE', () => {
-    expect(CHOIX.map((c) => c.ticker)).toEqual(['WSP', 'CSU', 'TOI']);
+  it('propose WSP et CSU, sans TOI, TFII ni ARE (écartés par le test de crise)', () => {
+    expect(CHOIX.map((c) => c.ticker)).toEqual(['WSP', 'CSU']);
   });
   it('un fichier complet respecte toutes les règles publiées', () => {
     expect(verifierProposition(complete())).toEqual([]);

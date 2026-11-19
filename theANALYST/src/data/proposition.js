@@ -1,6 +1,7 @@
 /*
  * proposition.js : contenu de la proposition d'indice (format trimestre.index-proposal/v2), écrit à la main.
  * Choix validés par l'équipe le 18 novembre 2026 : WSP, CSU, TOI (TFII et ARE écartés).
+ * Le 19 novembre 2026, TOI est retiré : il échoue au test de crise, comme TFII et ARE (voir src/lib/crises.js).
  *
  * Chaque signal reprend un chiffre déjà affiché dans le site, avec sa source :
  *   - « filing » : dépôt SEDAR+ cité mot pour mot dans les fichiers OneSheet (src/data/*.json), ou communiqué de l'entreprise ;
@@ -26,7 +27,7 @@ export const EQUIPE = {
 
 export const OUTIL = {
   name: 'theANALYST',
-  url: 'https://theanalyst33.netlify.app/',
+  url: 'https://kozachokk.github.io/onesheetTrimestre/',
   repo: 'https://github.com/Kozachokk/onsheetTrimestre',
   stack: ['JavaScript', 'React', 'Vite'],
   data_sources: [
@@ -80,24 +81,5 @@ export const CHOIX = [
       'AI tools could lower switching costs in vertical software and pressure maintenance revenue.',
     ],
     review_trigger: 'Organic growth of maintenance revenue (ex-FX) turning negative, or acquisition spending moving to large deals at more than 3x revenue.',
-  },
-  {
-    ticker: 'TOI',
-    exchange: 'TSXV',
-    thesis: 'Constellation\'s European spin-off, running the same playbook in local software. Q3 2026: 5% organic growth, 73% recurring revenue, EUR 199M free cash flow over nine months, and modest net debt of EUR 137M, so acquisitions are funded mostly from cash flow.',
-    edge: 'Our tool shows what Topicus actually owns: 166 subsidiaries across the Netherlands, Poland, France and Spain, and targets\' filed accounts, such as Cipal Schaubroeck bought at 2.4x revenue per the Belgian central balance sheet office.',
-    signals: [
-      { name: 'Organic growth', value: 5, unit: '%', period: 'Q3 2026', source: sedar('interim MD&A (Topicus.com, profile 000050502)', '2026-11-04', 'the Company experienced organic growth of 5% for both periods') },
-      { name: 'Free cash flow available to shareholders (FCFA2S)', value: 199.1, unit: 'EUR M', period: '9M 2026', source: sedar('interim MD&A (Topicus.com)', '2026-11-04', 'Free cash flow available to shareholders | Nine months ended - 2026 September: 199.1') },
-      { name: 'Net debt (cash less debt is negative)', value: 137.3, unit: 'EUR M', period: '2026-09-30', source: sedar('interim MD&A (Topicus.com)', '2026-11-04', 'Cash less Debt | September 30, 2026: (137.3)') },
-      { name: 'Maintenance and other recurring revenue, share of total revenue', value: 73.2, unit: '%', period: 'Q3 2026', source: { type: 'filing', ref: 'Computed from SEDAR+ interim financial statements filed 2026-11-04: maintenance and other recurring 325,755 / revenue 445,092 (EUR thousands)' } },
-      { name: 'Price paid for Cipal Schaubroeck, multiple of 2024 revenue', value: 2.36, unit: 'x', period: 'Closed 2025-06-02', source: { type: 'filing', ref: 'Price EUR 223.6M (Topicus SEDAR+ filings); 2024 revenue EUR 94.7M (annual accounts, National Bank of Belgium, company 0664.474.051)', url: 'https://consult.cbso.nbb.be/consult-enterprise/0664474051' } },
-      { name: 'Subsidiaries mapped under Topicus', value: 166, unit: 'companies', period: '2026-11-18', source: ciq('Topicus.com Inc.') },
-    ],
-    risks: [
-      'TSXV listing and concentrated ownership: the stock can move sharply on low trading volume.',
-      'Free cash flow to shareholders dipped 3.5% in Q3 2026; the Asseco Poland stake is a minority position Topicus does not control.',
-    ],
-    review_trigger: 'Organic growth below 2%, or net debt rising above 2x EBITDA to fund a large deal.',
   },
 ];
