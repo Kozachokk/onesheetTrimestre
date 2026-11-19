@@ -194,15 +194,7 @@ function EtatsOfficiels({ ticker }) {
 
   return (
     <div>
-      <details className="repli" style={{ marginTop: 0 }}>
-        <summary>C’est quoi EDGAR ?</summary>
-        <div className="contenu petit">
-          <b>EDGAR</b> est la base de données publique et gratuite de la SEC, l’autorité des marchés américains. Toute entreprise cotée aux
-          États-Unis doit y déposer ses états financiers. Si une entreprise achetée était cotée aux États-Unis avant son rachat, ses vrais
-          chiffres s’y trouvent. Pour les autres, on passe par le registre officiel de leur pays (Royaume-Uni, Belgique…) quand il existe.
-        </div>
-      </details>
-      <label className="petit discret" htmlFor={`choix-${ticker}`} style={{ display: 'block', margin: '0.8rem 0 0.3rem' }}>Choisir l’entreprise achetée</label>
+      <label className="petit discret" htmlFor={`choix-${ticker}`} style={{ display: 'block', margin: '0 0 0.3rem' }}>Choisir l’entreprise achetée</label>
       <select id={`choix-${ticker}`} value={nom} onChange={(e) => setNom(e.target.value)} style={{ maxWidth: 620 }}>
         {choix.map((c) => <option key={c.nom} value={c.nom}>{etiquetteChoix(c)}</option>)}
       </select>
