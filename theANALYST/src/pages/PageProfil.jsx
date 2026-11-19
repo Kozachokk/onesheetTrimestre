@@ -27,24 +27,6 @@ export default function PageProfil() {
       <section className="etape">
         <h2 className="centre"><span className="numero">1</span>Ton profil d’investisseur</h2>
         <CartesProfils />
-        {profil?.justification && (
-          <div className="carte vedette" style={{ marginTop: '1rem' }}>
-            <div className="etiquette">Pourquoi ces poids : {profil.nom}</div>
-            <p className="petit" style={{ margin: '0.3rem 0 0.6rem' }}>{profil.description}</p>
-            <table className="donnees" style={{ textAlign: 'left' }}>
-              <tbody>
-                {profil.justification.map((j) => (
-                  <tr key={j.critere}>
-                    <td style={{ width: 230 }}><b>{j.critere}</b></td>
-                    <td style={{ width: 70 }}>{j.poids === null ? '' : <b className="accent">{j.poids} %</b>}</td>
-                    <td className="petit">{j.pourquoi}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {ajuste && <p className="discret petit" style={{ marginBottom: 0 }}>Tu as ajusté des curseurs : les poids ne sont plus exactement ceux du profil.</p>}
-          </div>
-        )}
       </section>
 
       <section className="etape">
@@ -61,6 +43,27 @@ export default function PageProfil() {
           </div>
         </div>
       </section>
+
+      {profil?.justification && (
+        <section className="etape">
+          <div className="carte vedette justification">
+            <div className="etiquette">Pourquoi ces poids : {profil.nom}</div>
+            <p className="petit" style={{ margin: '0.3rem 0 0.6rem' }}>{profil.description}</p>
+            <table className="donnees" style={{ textAlign: 'left' }}>
+              <tbody>
+                {profil.justification.map((j) => (
+                  <tr key={j.critere}>
+                    <td style={{ width: 230 }}><b>{j.critere}</b></td>
+                    <td style={{ width: 70 }}>{j.poids === null ? '' : <b className="accent">{j.poids} %</b>}</td>
+                    <td className="petit">{j.pourquoi}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {ajuste && <p className="discret petit" style={{ marginBottom: 0 }}>Tu as ajusté des curseurs : les poids ne sont plus exactement ceux du profil.</p>}
+          </div>
+        </section>
+      )}
 
       <section className="etape">
         <div className="carte criteres">
