@@ -81,7 +81,7 @@ export function repondreEntreprise(question, entreprise, resultat, dirigeant, ra
   }
   if (/filiale|segment|possede|division|projet|subsidiar|owns|project/.test(q)) {
     const noms = (entreprise.entites || []).slice(0, 12).map((x) => x.nom);
-    return noms.length ? `${entreprise.nom} regroupe notamment : ${noms.join(', ')}. Le Hall des dirigeants les montre toutes.` : INCONNU;
+    return noms.length ? `${entreprise.nom} regroupe notamment : ${noms.join(', ')}. La section Sous-compagnies de sa fiche en dit plus.` : INCONNU;
   }
   if (/que fait|activite|secteur|description|c'est quoi|presente|what does|business|sector/.test(q)) {
     return entreprise.description ? `${entreprise.description} (description du fichier OneSheet, en anglais)` : INCONNU;

@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 import { useProfil } from '../etat/ProfilContext.jsx';
 import { aller } from '../etat/navigation.js';
-import { PROFILS, classer, gagnant, poidsDuProfil, seuilsDuProfil } from '../lib/pointage.js';
-import { CATEGORIES, seuilsParDefaut } from '../lib/ratios.js';
+import { CATEGORIES } from '../lib/ratios.js';
 import { csvClassement, justification } from '../lib/rapport.js';
 import { fr, formater } from '../lib/format.js';
 import Barre from '../components/commun/Barre.jsx';
@@ -19,12 +18,8 @@ function telecharger(nom, contenu) {
 
 /** Classement complet, titre en tête, justification, solidité du choix et comparaison des profils. */
 export default function PageClassement() {
-  const { config, entreprises, resultats, rangs, premier, solidite, poids, profil, ajuste } = useProfil();
+  const { config, resultats, rangs, premier, solidite, poids, profil, ajuste } = useProfil();
   const j = useMemo(() => justification(resultats, poids), [resultats, poids]);
-  const parProfil = useMemo(() => {
-    const base = seuilsParDefaut(config.taux_obligataire_10ans);
-    return Object.fromEntries(PROFILS.map((p) => [p.id, classer(entreprises, poidsDuProfil(p), seuilsDuProfil(p, base), p.filtres || [], config.filtres)]));
-  }, [entreprises, config]);
   const nomProfil = profil ? `${profil.nom}${ajuste ? ' (ajusté)' : ''}` : 'profil sur mesure';
 
   return (
@@ -47,6 +42,14 @@ export default function PageClassement() {
       </section>
 
       <Repartition />
+
+      <section className="carte vedette rangee entre" style={{ margin: '1rem 0' }}>
+        <div>
+          <div className="etiquette">Prochaine étape</div>
+          <b style={{ fontSize: '1.15rem' }}>Simuler l’indice avec les titres de ton profil, crises comprises</b>
+        </div>
+        <a className="bouton plein grand" href="#/simulation">Aller à la simulation</a>
+      </section>
 
       <section className="carte defilement">
         <table className="donnees">
@@ -103,28 +106,9 @@ export default function PageClassement() {
           </div>
         )) : <p className="discret">Simulation impossible : aucun titre admissible ou aucun critère pondéré.</p>}
       </Repliable>
-
-      <Repliable titre="Qui gagne selon le style d’investisseur ?">
-        <div className="defilement">
-          <table className="donnees">
-            <thead><tr><th>Titre</th>{PROFILS.map((p) => <th key={p.id} title={p.description}>{p.nom}</th>)}</tr></thead>
-            <tbody>
-              {Object.keys(entreprises).sort().map((t) => (
-                <tr key={t}>
-                  <td><b>{t}</b></td>
-                  {PROFILS.map((p) => {
-                    const r = parProfil[p.id].find((x) => x.ticker === t);
-                    const tete = gagnant(parProfil[p.id])?.ticker === t;
-                    return <td key={p.id} className={r.elimine ? 'nd' : tete ? 'meilleur' : ''} title={r.elimine ? `Éliminé : ${r.raisons.join(' ; ')}` : ''}>
-                      {r.score === null ? 'n. d.' : Math.round(r.score)}{r.elimine ? ' (éliminé)' : ''}</td>;
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="discret petit">En vert : le premier de chaque profil, avec ses poids et ses filtres d’origine.</p>
-      </Repliable>
+      <div className="centre" style={{ marginTop: '1.6rem' }}>
+        <a className="bouton plein grand" href="#/simulation">Prochaine étape : la simulation</a>
+      </div>
     </main>
   );
 }

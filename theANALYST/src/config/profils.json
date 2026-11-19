@@ -33,6 +33,71 @@
  ],
  "profils": [
   {
+   "id": "onesheet",
+   "nom": "Profil Onesheet",
+   "style": "notre choix pour l’indice Serial Acquirers",
+   "inspire": false,
+   "description": "Les critères de notre proposition à Onesheet : des consolidateurs qui grandissent par leurs achats et par eux-mêmes, financent leurs achats avec leur cash, ne sont pas trop chers et respectent les limites de risque de l’indice.",
+   "poids": {
+    "pe": 0,
+    "p_fcf": 0,
+    "croissance_revenus": 20,
+    "croissance_bpa": 15,
+    "marge_fcf": 10,
+    "dette_fcf": 0,
+    "rendement_dividende": 0,
+    "croissance_organique": 10,
+    "pe_prevu": 20,
+    "rendement_6mois": 25
+   },
+   "filtres": [
+    "perte_nette",
+    "dette_fcf"
+   ],
+   "justification": [
+    {
+     "critere": "Croissance des revenus",
+     "poids": 20,
+     "pourquoi": "Un consolidateur doit grandir par ses achats : WSP a ajouté 15,3 % de revenus nets par acquisitions au T3 2026 (rapport de gestion, SEDAR+, 2026-11-04)."
+    },
+    {
+     "critere": "Croissance organique",
+     "poids": 10,
+     "pourquoi": "Les entreprises achetées doivent continuer de croître seules : 5,1 % pour WSP et 4 % pour CSU au T3 2026 (rapports de gestion, SEDAR+, 2026)."
+    },
+    {
+     "critere": "Croissance du BPA",
+     "poids": 15,
+     "pourquoi": "Les achats doivent créer du profit par action, pas seulement de la taille."
+    },
+    {
+     "critere": "Marge de FCF",
+     "poids": 10,
+     "pourquoi": "Le cash finance les achats suivants : CSU a généré 443 M$ US de flux de trésorerie disponibles pour les actionnaires au T3 2026 (rapport de gestion, SEDAR+, 2026-11-06)."
+    },
+    {
+     "critere": "P/E prévisionnel",
+     "poids": 20,
+     "pourquoi": "Ne pas payer le titre trop cher par rapport au profit attendu."
+    },
+    {
+     "critere": "Rendement sur 6 mois",
+     "poids": 25,
+     "pourquoi": "La tendance récente du cours : l’indice a des limites de risque, et un titre en forte baisse les met en danger. C’est ce critère qui place CSU devant Topicus."
+    },
+    {
+     "critere": "Filtres : perte nette et dette",
+     "poids": null,
+     "pourquoi": "Limites de risque : une perte nette sur 12 mois écarte Aecon, une dette de plus de 5 ans de FCF écarte TFI."
+    },
+    {
+     "critere": "Ensuite : test de crise",
+     "poids": null,
+     "pourquoi": "Le test de crise (page Simulation) écarte Topicus, qui ferait baisser l’indice de plus de 2 points dans la hausse des taux de 2022. Il reste WSP et CSU."
+    }
+   ]
+  },
+  {
    "id": "buffett",
    "nom": "Warren Buffett",
    "style": "qualité à prix raisonnable",

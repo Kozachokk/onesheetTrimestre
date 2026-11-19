@@ -14,6 +14,7 @@ const norme = (t) => t.trim().replace(/[\u00a0\u202f]/g, ' ').replace(/\u2019/g,
 const BASE = {
   // ---- Barre du haut, pied de page
   Classement: 'Ranking', 'Hall des dirigeants': 'Hall of Leaders', Comparer: 'Compare', Méthode: 'Method', 'Mon profil': 'My profile',
+  'Comment c’est calculé ?': 'How is it calculated?', Signal: 'Signal', Valeur: 'Value',
   'Traduire en anglais': 'Switch language', 'Outil de démonstration, pas un conseil de placement.': 'Demonstration tool, not investment advice.',
   'Chargement des données…': 'Loading data…',
 
@@ -70,7 +71,7 @@ const BASE = {
 
   // ---- Fiche d'une entreprise
   '← Retour au classement': '← Back to the ranking', 'Titre introuvable': 'Stock not found', 'Retour au classement': 'Back to the ranking',
-  'Selon ton profil': 'For your profile', 'Tes critères, pour ce titre': 'Your criteria, for this stock', 'Voir au Hall des dirigeants': 'See in the Hall of Leaders',
+  'Selon ton profil': 'For your profile', 'Tes critères, pour ce titre': 'Your criteria, for this stock',
   Cours: 'Price', Capitalisation: 'Market cap', 'Revenus (12 mois)': 'Revenue (12 months)', 'FCF (12 mois)': 'FCF (12 months)', 'Bénéfice net (12 mois)': 'Net income (12 months)', 'Dette totale': 'Total debt',
   'voir la source': 'view source', 'Chercher le dépôt sur SEDAR+ ↗': 'Find the filing on SEDAR+ ↗', 'Voir la page du titre sur stockanalysis.com ↗': 'See the stock page on stockanalysis.com ↗',
   'Voir la page du titre sur Yahoo Finance ↗': 'See the stock page on Yahoo Finance ↗', 'Ouvrir les rapports dans EDGAR ↗': 'Open the reports in EDGAR ↗', 'Source de la donnée': 'Source of the figure', 'source n. d.': 'source n/a', 'Date :': 'Date:', 'Ouvrir le site de la source ↗': 'Open the source website ↗',
@@ -102,6 +103,10 @@ const BASE = {
   "Bénéfice net, flux d'exploitation et FCF par exercice": 'Net income, operating cash flow and FCF by fiscal year', 'Bénéfice par action (BPA) par trimestre': 'Earnings per share (EPS) by quarter', BPA: 'EPS',
   'Données insuffisantes pour dégager une tendance.': 'Not enough data to identify a trend.',
 
+  // ---- Sous-compagnies : vue S&P Capital IQ
+  'Toutes les filiales, par groupe interne': 'All subsidiaries, by internal group', 'Filiales recensées': 'Subsidiaries listed',
+  'Avec des revenus depuis 2022': 'With revenue since 2022', 'Revenus connus (M$ US)': 'Known revenue (US$ M)', 'Principaux pays': 'Main countries',
+  Méthodologie: 'Methodology', 'Test de crise': 'Stress test', 'Lancer le test': 'Run the test', 'Que deviendrait l’indice dans une crise ?': 'What would happen to the index in a crisis?', 'Comment c’est calculé': 'How it is calculated', réussi: 'passed', échoué: 'failed', 'Effet total': 'Total effect', 'Test de crise (simulation)': 'Stress test (simulation)', 'Krach de la COVID': 'COVID crash', 'Hausse des taux de 2022': '2022 rate hikes', 'Choc des tarifs de 2025': '2025 tariff shock', proposé: 'proposed', écarté: 'excluded', 'pas encore coté': 'not yet listed', 'Rachat complet': 'Full acquisition', 'Estimation, à confirmer': 'Estimate, to be confirmed', 'Conclue le': 'Completed on', 'Prix payé (M$ US)': 'Price paid (US$ M)', 'Médiane des pairs': 'Peer median', 'Par rapport aux pairs': 'Versus peers', 'Valeurs de chaque pair': 'Each peer’s values', mieux: 'better', 'moins bien': 'worse', 'Règles suivies pour les chiffres': 'Rules followed for the figures', 'Groupe interne': 'Internal group', Filiales: 'Subsidiaries', 'Avec revenus': 'With revenue', Exercices: 'Fiscal years', 'Autres filiales': 'Other subsidiaries',
   // ---- Sous-compagnies
   'Achats recensés': 'Acquisitions listed', 'Avec de vrais chiffres': 'With real figures', 'Taille seulement estimée': 'Size only estimated', 'Impossibles à estimer': 'Impossible to estimate',
   'Entreprises achetées': 'Companies acquired', 'Entreprise achetée': 'Company acquired', 'Prix payé': 'Price paid', 'États financiers ?': 'Financial statements?', Comptes: 'Accounts',
@@ -165,10 +170,7 @@ const BASE = {
  'Aucune entreprise achetée recensée pour ce titre.': 'No acquired company listed for this stock.',
   'NOS ESTIMATIONS NE SONT PAS FIABLES': 'OUR ESTIMATES ARE NOT RELIABLE', 'VERDICT : NOS ESTIMATIONS NE SONT PAS FIABLES': 'VERDICT: OUR ESTIMATES ARE NOT RELIABLE',
 
-  // ---- Hall des dirigeants
-  "Serre la main d'un dirigeant pour ouvrir sa fiche": 'Shake a leader’s hand to open their company profile',
-  "Promène-toi avec les flèches ← → ou en amenant la main près du bord. Clique une étiquette au mur pour découvrir ce que l'entreprise possède. Dirigeants vérifiés le 12 novembre 2026 ; personnages illustrés, sans ressemblance recherchée.":
-    'Walk around with the ← → arrows or by moving the hand near the edge. Click a label on the wall to discover what the company owns. Leaders verified on November 12, 2026; illustrated characters, no likeness intended.',
+  // ---- Dirigeants et filiales
   'Président et chef de la direction': 'President and Chief Executive Officer', Président: 'President', 'Chef de la direction': 'Chief Executive Officer',
   'Président du conseil, président et chef de la direction': 'Chairman, President and Chief Executive Officer',
   Segment: 'Segment', Filiale: 'Subsidiary', Projet: 'Project', "Secteur d'activité": 'Business line', Produit: 'Product', Autre: 'Other',
@@ -263,7 +265,7 @@ export const MOTIFS = [
   [/^Derniers (\S+) recensés \(résumés des dépôts, en anglais\) :/, (m, t) => `Latest ${{ acquisitions: 'acquisitions', litiges: 'litigation', financements: 'financings' }[t] || t} on record (summaries from the filings):`],
   [/^Aucun événement de type « (.+) » dans les données du site pour (.+)\.$/, 'No event of type “$1” in the site’s data for $2.'],
   [/^Meilleures notes : (.+)\. Notes les plus faibles : (.+)\.$/, 'Best grades: $1. Weakest grades: $2.'],
-  [/ regroupe notamment : (.+)\. Le Hall des dirigeants les montre toutes\.$/, ' notably includes: $1. The Hall of Leaders shows them all.'],
+  [/ regroupe notamment : (.+)\. La section Sous-compagnies de sa fiche en dit plus\.$/, ' notably includes: $1. The Subsidiaries section of its profile tells more.'],
   [/\(description du fichier OneSheet, en anglais\)/, '(description from the OneSheet file)'],
   [/^Aucun pointage : aucun critère pondéré n'a de donnée pour ce titre\.$/, 'No score: no weighted criterion has data for this stock.'],
   [/ ; le titre est éliminé \((.+)\)\.$/, '; the stock is eliminated ($1).'],

@@ -14,7 +14,7 @@ export const DONNEES = {
    "devise": "USD",
    "prix": null,
    "revenus": 765.7,
-   "baiia": null,
+   "baiia": 282.7,
    "resultat_exploitation": null,
    "resultat_net": 118.8,
    "exercice": "2025",
@@ -22,7 +22,20 @@ export const DONNEES = {
    "registre": "SEDAR+ (cotée)",
    "note": "Flux de trésorerie d'exploitation 236,5 M$, capitaux propres 819 M$. T3 2026 : revenus 289,9 M$ (+55 %), croissance interne 3 %.",
    "source": "https://financialfilings.com/companies/lumine-group-inc/",
-   "employes": null
+   "employes": null,
+   "capital_iq": {
+    "entite": "Lumine Group Inc. (TSXV:LMN)",
+    "exercice": "2025",
+    "fin_exercice": "2025-12-31",
+    "revenus": 765.7,
+    "baiia": 282.7,
+    "resultat_net": 118.8,
+    "employes": 190,
+    "employes_date": "2026-09",
+    "champs_remplis": [
+     "baiia"
+    ]
+   }
   },
   {
    "acquereur": "CSU",
@@ -54,7 +67,20 @@ export const DONNEES = {
    "registre": "SEC EDGAR",
    "note": "Ancienne société NASDAQ, 91 % de revenus récurrents. Chez CSU : 107 M$ de revenus, perte de 2 M$ en 9 mois.",
    "source": "https://synchronosstechnologiesinc.gcs-web.com/node/23966",
-   "employes": null
+   "employes": 1096,
+   "capital_iq": {
+    "entite": "Synchronoss Technologies, Inc.",
+    "exercice": "2024",
+    "fin_exercice": "2024-12-31",
+    "revenus": 173.6,
+    "baiia": 25.9,
+    "resultat_net": 6.2,
+    "employes": 1096,
+    "employes_date": "2026-09",
+    "champs_remplis": [
+     "employes"
+    ]
+   }
   },
   {
    "acquereur": "CSU",
@@ -70,7 +96,15 @@ export const DONNEES = {
    "registre": "Division d'Allscripts (pas de dépôt séparé à la SEC)",
    "note": "670 M$ à la clôture + jusqu'à 30 M$ conditionnels. Revenus en déclin depuis 3 ans : achat de redressement.",
    "source": "https://hcinnovationgroup.com/clinical-it/article/21259054/allscripts-selling-hospital-large-physician-groups-unit-for-up-to-700m",
-   "employes": null
+   "employes": 2640,
+   "capital_iq": {
+    "entite": "Altera Digital Health Inc.",
+    "employes": 2640,
+    "employes_date": "2026-08",
+    "champs_remplis": [
+     "employes"
+    ]
+   }
   },
   {
    "acquereur": "CSU",
@@ -86,7 +120,15 @@ export const DONNEES = {
    "registre": "Division de Black Knight (non publiée seule)",
    "note": "200 M$ comptant + billet de 500 M$. Chiffres de la division non trouvés.",
    "source": "https://www.csisoftware.com/?p=2532",
-   "employes": null
+   "employes": 319,
+   "capital_iq": {
+    "entite": "Optimal Blue, LLC",
+    "employes": 319,
+    "employes_date": "2026-08",
+    "champs_remplis": [
+     "employes"
+    ]
+   }
   },
   {
    "acquereur": "CSU",
@@ -102,7 +144,13 @@ export const DONNEES = {
    "cik": null,
    "registre": "Privée (états de Lumine)",
    "note": "Acheté par Lumine. Revenus bruts 2021 environ 167 M$, 450 employés.",
-   "source": "https://www.csisoftware.com/?p=2564"
+   "source": "https://www.csisoftware.com/?p=2564",
+   "capital_iq": {
+    "entite": "WideOrbit Inc.",
+    "employes": 331,
+    "employes_date": "2026-09",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "CSU",
@@ -134,7 +182,18 @@ export const DONNEES = {
    "cik": null,
    "registre": "Banque nationale de Belgique — BCE 0664.474.051",
    "note": "Acheté par Topicus. Prix 223,6 M€ (toi.json). Marge brute 44,7 M€.",
-   "source": "https://companyweb.be/en/0664474051/cipal-schaubroeck"
+   "source": "https://companyweb.be/en/0664474051/cipal-schaubroeck",
+   "capital_iq": {
+    "entite": "Cipal Schaubroeck NV",
+    "exercice": "2025",
+    "fin_exercice": "2025-12-31",
+    "revenus": 108.2,
+    "baiia": 6.5,
+    "resultat_net": 2.7,
+    "employes": 332,
+    "employes_date": "2026-09",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "CSU",
@@ -182,7 +241,18 @@ export const DONNEES = {
    "cik": null,
    "registre": "Banque nationale de Belgique — BCE 0664.474.051",
    "note": "Prix 223,6 M€ (toi.json). Marge brute 44,7 M€ (2024).",
-   "source": "https://companyweb.be/en/0664474051/cipal-schaubroeck"
+   "source": "https://companyweb.be/en/0664474051/cipal-schaubroeck",
+   "capital_iq": {
+    "entite": "Cipal Schaubroeck NV",
+    "exercice": "2025",
+    "fin_exercice": "2025-12-31",
+    "revenus": 108.2,
+    "baiia": 6.5,
+    "resultat_net": 2.7,
+    "employes": 332,
+    "employes_date": "2026-09",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "TOI",
@@ -230,7 +300,17 @@ export const DONNEES = {
    "cik": null,
    "registre": "Privée (Warburg Pincus)",
    "note": "Revenus nets. Prix = 14,5x le BAIIA 2026e (12,5x avec synergies).",
-   "source": "https://www.wsp.com/en-gl/investors/press-releases/details/WSP-to-acquire-TRC,-supercharging-its-leading-position-in-the-Power--Energy-sector/3205869/2025"
+   "source": "https://www.wsp.com/en-gl/investors/press-releases/details/WSP-to-acquire-TRC,-supercharging-its-leading-position-in-the-Power--Energy-sector/3205869/2025",
+   "capital_iq": {
+    "entite": "TRC Companies, Inc.",
+    "exercice": "2025",
+    "fin_exercice": "2025-06-30",
+    "revenus": 1498.9,
+    "resultat_net": -2.0,
+    "employes": 5997,
+    "employes_date": "2026-09",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "WSP",
@@ -246,7 +326,13 @@ export const DONNEES = {
    "cik": null,
    "registre": "Privée (employés-actionnaires)",
    "note": "BAIIA déduit du multiple annoncé : 15,2x le BAIIA 2024e.",
-   "source": "https://www.wsp.com/en-za/news/2024/wsp-to-acquire-power-engineers"
+   "source": "https://www.wsp.com/en-za/news/2024/wsp-to-acquire-power-engineers",
+   "capital_iq": {
+    "entite": "POWER Engineers, Incorporated",
+    "employes": 1938,
+    "employes_date": "2026-09",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "WSP",
@@ -262,7 +348,18 @@ export const DONNEES = {
    "cik": null,
    "registre": "Companies House 00222915",
    "note": "Ancienne société cotée à Londres. Prix = valeur des actions (sans la dette).",
-   "source": "https://ricardo.com/media/somagtwb/cfo-report.pdf"
+   "source": "https://ricardo.com/media/somagtwb/cfo-report.pdf",
+   "capital_iq": {
+    "entite": "Ricardo Limited",
+    "exercice": "2025",
+    "fin_exercice": "2025-06-30",
+    "revenus": 456.4,
+    "baiia": 33.1,
+    "resultat_net": 30.4,
+    "employes": 1935,
+    "employes_date": "2026-08",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "WSP",
@@ -278,7 +375,16 @@ export const DONNEES = {
    "cik": null,
    "registre": "Registre finlandais — 2261569-8",
    "note": "Prix non divulgué. Firme ferroviaire, marge faible.",
-   "source": "https://www.mainsights.io/ma-news/canadian-wsp-acquires-finnish-proxion-plan-and-proxion-pro"
+   "source": "https://www.mainsights.io/ma-news/canadian-wsp-acquires-finnish-proxion-plan-and-proxion-pro",
+   "capital_iq": {
+    "entite": "Proxion Plan Oy",
+    "exercice": "2024",
+    "fin_exercice": "2024-11-08",
+    "revenus": 13.1,
+    "baiia": 0.3,
+    "resultat_net": -0.3,
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "WSP",
@@ -294,7 +400,13 @@ export const DONNEES = {
    "cik": null,
    "registre": "Privée (États-Unis)",
    "note": "Génie mécanique/électrique, New York. Aucun chiffre publié.",
-   "source": "https://www.wsp.com/en-ae/news/2024/wsp-acquires-akf"
+   "source": "https://www.wsp.com/en-ae/news/2024/wsp-acquires-akf",
+   "capital_iq": {
+    "entite": "AKF Group LLC",
+    "employes": 225,
+    "employes_date": "2026-09",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "WSP",
@@ -310,23 +422,34 @@ export const DONNEES = {
    "cik": null,
    "registre": "Registro Mercantil (Espagne)",
    "note": "Secteur énergie. Termes non divulgués. Comptes au registre espagnol (payant).",
-   "source": "https://sustainabletechpartner.com/topics/ma/ma-wsp-global-acquires-energy-consulting-firm-1a-ingenieros-of-spain/"
+   "source": "https://sustainabletechpartner.com/topics/ma/ma-wsp-global-acquires-energy-consulting-firm-1a-ingenieros-of-spain/",
+   "capital_iq": {
+    "entite": "1A Ingenieros S.L.",
+    "exercice": "2024",
+    "fin_exercice": "2024-12-31",
+    "revenus": 13.7,
+    "baiia": 0.5,
+    "resultat_net": 0.1,
+    "employes": 40,
+    "employes_date": "2026-09",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "WSP",
    "cible": "Hulley & Kirkwood (R.-U.)",
    "devise": "GBP",
    "prix": null,
-   "revenus": null,
+   "revenus": 10.865,
    "baiia": null,
-   "resultat_exploitation": null,
-   "resultat_net": null,
+   "resultat_exploitation": 0.881,
+   "resultat_net": 0.631,
    "employes": 122,
-   "exercice": "—",
+   "exercice": "juin 2025",
    "cik": null,
    "registre": "Companies House SC132484",
-   "note": "Comptes déposés à Companies House (pas encore extraits).",
-   "source": "https://app.dealroom.co/companies/hulley_kirkwood"
+   "note": "Comptes annuels déposés à Companies House (société de taille moyenne, exercice au 30 juin 2025) : revenus 10 864 951 £, résultat d'exploitation 880 668 £, bénéfice 630 812 £, 124 employés en moyenne. Exercice 2024 : revenus 10 920 944 £.",
+   "source": "https://find-and-update.company-information.service.gov.uk/company/SC132484/filing-history"
   },
   {
    "acquereur": "TFII",
@@ -342,7 +465,16 @@ export const DONNEES = {
    "cik": 1642453,
    "registre": "SEC EDGAR",
    "note": "BAIIA = milieu de la prévision 2023 (185-190 M$). 2022 : revenus 1,77 G$, BAIIA ajusté 234,9 M$.",
-   "source": "https://www.marketscreener.com/quote/stock/DASEKE-INC-34151827/news/Daseke-Inc-Reports-Earnings-Results-for-the-Full-Year-Ended-December-31-2023-46124597/"
+   "source": "https://www.marketscreener.com/quote/stock/DASEKE-INC-34151827/news/Daseke-Inc-Reports-Earnings-Results-for-the-Full-Year-Ended-December-31-2023-46124597/",
+   "capital_iq": {
+    "entite": "Daseke, Inc.",
+    "exercice": "2023",
+    "fin_exercice": "2023-12-31",
+    "revenus": 1569.4,
+    "baiia": 150.3,
+    "resultat_net": -17.7,
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "TFII",
@@ -374,7 +506,13 @@ export const DONNEES = {
    "cik": null,
    "registre": "Privée",
    "note": "Participation majoritaire. Prix de base, plus paiement conditionnel possible.",
-   "source": "https://www.privsource.com/acquisitions/deal/rJSOx0"
+   "source": "https://www.privsource.com/acquisitions/deal/rJSOx0",
+   "capital_iq": {
+    "entite": "Xtreme Powerline Construction, LLC",
+    "employes": 25,
+    "employes_date": "2026-09",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "ARE",
@@ -406,7 +544,13 @@ export const DONNEES = {
    "cik": null,
    "registre": "Privée",
    "note": "Payé comptant. Le vendeur vise des firmes de moins de 10 M$ de BAIIA.",
-   "source": "https://www.bnnbloomberg.ca/business/company-news/2024/10/28/aecon-group-buying-united-engineers-constructors-for-us33-million-in-cash/"
+   "source": "https://www.bnnbloomberg.ca/business/company-news/2024/10/28/aecon-group-buying-united-engineers-constructors-for-us33-million-in-cash/",
+   "capital_iq": {
+    "entite": "United Engineers & Constructors, Inc.",
+    "employes": 128,
+    "employes_date": "2026-09",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "ARE",
@@ -422,7 +566,13 @@ export const DONNEES = {
    "cik": null,
    "registre": "Privée",
    "note": "Termes non divulgués.",
-   "source": "https://mergr.com/transaction/aecon-acquires-bodell-construction"
+   "source": "https://mergr.com/transaction/aecon-acquires-bodell-construction",
+   "capital_iq": {
+    "entite": "Bodell Construction Company",
+    "employes": 52,
+    "employes_date": "2026-08",
+    "champs_remplis": []
+   }
   },
   {
    "acquereur": "ARE",
@@ -846,9 +996,9 @@ export const DONNEES = {
  },
  "TAUX_USD": {
   "USD": 1.0,
-  "EUR": 1.08,
-  "GBP": 1.27,
-  "CAD": 0.73,
+  "EUR": 1.1291,
+  "GBP": 1.3178,
+  "CAD": 0.7154,
   "PLN": 0.25
  },
  "SECTEUR": {
@@ -879,5 +1029,9 @@ export const DONNEES = {
    "type": "Méthode courante",
    "explication": "BAIIA estimé = revenus estimés × marge BAIIA observée chez des firmes du même secteur."
   }
+ },
+ "TAUX_SOURCE": {
+  "texte": "Moyennes annuelles 2025 de la Banque du Canada (USD/CAD 1,3978 ; EUR/CAD 1,5782 ; GBP/CAD 1,8420), converties en dollars américains. Zloty polonais : taux approximatif, absent de la série.",
+  "url": "https://www.bankofcanada.ca/valet/observations/FXAUSDCAD,FXAEURCAD,FXAGBPCAD/json?recent=3"
  }
 };

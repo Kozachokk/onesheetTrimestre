@@ -149,7 +149,7 @@ details.repli > .contenu { padding: 0 1.2rem 1.2rem; animation: apparition 300ms
 .etoiles i { color: var(--bord); font-style: normal; }
 .analyse { border-left: 3px solid var(--lime); padding: 0.35rem 0.8rem; margin: 0.6rem 0; color: #e6f0ee; }
 .toile { position: relative; height: 280px; }
-select, input[type='text'], input[type='password'], textarea {
+select, input[type='text'], input[type='url'], input[type='password'], textarea {
   background: var(--carte-2); border: 1px solid var(--bord); color: var(--texte); border-radius: 10px; padding: 0.5rem 0.7rem; font: inherit; width: 100%; transition: border-color var(--transition);
 }
 select:focus, input:focus, textarea:focus { outline: none; border-color: var(--accent); }
@@ -170,3 +170,43 @@ select:focus, input:focus, textarea:focus { outline: none; border-color: var(--a
 .repartition-barre span { display: flex; align-items: center; justify-content: center; color: #000; font-weight: 800; font-size: 0.8rem;
   white-space: nowrap; overflow: hidden; transition: width 520ms cubic-bezier(0.2, 0.7, 0.2, 1); }
 .pastille-couleur { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 7px; vertical-align: middle; }
+
+/* ---------- Page d'accueil : profil, puis classement en grand au centre, puis critères ---------- */
+.centre { text-align: center; }
+.page-accueil { max-width: 1040px; }
+.page-accueil .intro { max-width: 660px; margin: 0.4rem auto 0; }
+.etape { margin-top: 2.2rem; }
+.etape > h2.centre { margin-bottom: 1rem; }
+.numero { display: inline-flex; align-items: center; justify-content: center; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--fond); font-size: 1rem; margin-right: 0.65rem; vertical-align: 0.12em; }
+.classement-vedette { max-width: 820px; margin: 0 auto; padding: 1.6rem 1.9rem; border: 1px solid var(--accent); background: linear-gradient(160deg, #0d1813, var(--carte)); box-shadow: 0 0 0 1px rgba(105, 219, 124, 0.25), 0 18px 50px rgba(0, 0, 0, 0.55); }
+.classement-vedette h2 { font-size: 1.75rem; margin: 0; }
+.classement-vedette .ligne-classement { grid-template-columns: 2.6rem minmax(0, 1fr) 5rem; padding: 1rem 0.3rem; }
+.classement-vedette .ligne-classement b { font-size: 1.22rem; }
+.classement-vedette .rang { font-size: 1.7rem; }
+.classement-vedette .score { font-size: 2rem; }
+.classement-vedette .barre { width: 100% !important; max-width: 440px; height: 10px; margin-top: 0.45rem; }
+.criteres { max-width: 820px; margin: 0 auto; }
+@media (max-width: 600px) { .classement-vedette { padding: 1.1rem 1rem; } .classement-vedette .score { font-size: 1.5rem; } }
+
+/* ---------- Simulation ---------- */
+.reglages-simulation { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem 1.6rem; }
+.graphique-simulation { width: 100%; height: auto; display: block; }
+.legende { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; margin-top: 0.4rem; }
+
+/* ---------- Hall des dirigeants : cartes avec personnage et poignée de main ---------- */
+.hall-grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; margin-top: 1.6rem; }
+.hall-poste { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.25rem; padding: 1rem 0.9rem 1.2rem; }
+.hall-poste.elimine { opacity: 0.6; }
+.hall-poste.poignee { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.hall-entete { width: 100%; min-height: 4.6rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--bord); display: flex; flex-direction: column; justify-content: flex-end; }
+.hall-entete b { font-size: 1.1rem; }
+.hall-scene { position: relative; width: 100%; max-width: 190px; cursor: none; user-select: none; outline: none; border-radius: 12px; }
+.hall-scene:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
+.hall-scene .personnage { width: 100%; height: auto; display: block; overflow: visible; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6)); }
+.hall-main { position: absolute; pointer-events: none; z-index: 2; }
+.hall-bulle { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); background: var(--accent); color: #000; font-weight: 800; padding: 0.3rem 0.9rem; border-radius: 999px; white-space: nowrap; animation: fondu 200ms ease both; }
+@keyframes fondu { from { opacity: 0; } to { opacity: 1; } }
+.secoue { animation: secoue 220ms ease-in-out 4; transform-box: fill-box; }
+@keyframes secoue { 0%, 100% { transform: translateY(0); } 25% { transform: translateY(-9px); } 75% { transform: translateY(9px); } }
+.hall-nom { font-size: 1.05rem; margin-top: 0.3rem; }
+button.lien { background: none; border: none; padding: 0; color: var(--accent); text-decoration: underline; cursor: pointer; font: inherit; }

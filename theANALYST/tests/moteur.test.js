@@ -59,9 +59,9 @@ describe('ratios', () => {
 });
 
 describe('pointage', () => {
-  it('les sept profils ont les poids demandés, qui font 100', () => {
-    expect(PROFILS).toHaveLength(7);
-    PROFILS.forEach((p) => {
+  it('les huit profils ont les poids demandés, qui font 100', () => {
+    expect(PROFILS).toHaveLength(8);
+    PROFILS.filter((p) => p.id !== 'onesheet').forEach((p) => {
       expect(Object.keys(p.poids)).toEqual(CRITERES.map((c) => c.id));
       expect(Object.values(p.poids).reduce((a, b) => a + b, 0)).toBe(100);
     });
@@ -69,6 +69,15 @@ describe('pointage', () => {
     expect(Object.values(profil('graham').poids)).toEqual([30, 25, 0, 5, 5, 30, 5]);
     expect(Object.values(profil('leonard').poids)).toEqual([0, 20, 25, 10, 30, 10, 5]);
     expect(Object.values(profil('croissance').poids)).toEqual([5, 5, 35, 25, 15, 10, 5]);
+    expect(Object.values(profil('onesheet').poids).reduce((a, b) => a + b, 0)).toBe(100);
+  });
+  it('profil Onesheet : WSP et CSU en tête, Aecon et TFI éliminées, puis Topicus', () => {
+    const res = classement('onesheet');
+    const admis = res.filter((r) => !r.elimine).map((r) => r.ticker);
+    expect(admis.slice(0, 2).sort()).toEqual(['CSU', 'WSP']);
+    expect(admis[2]).toBe('TOI');
+    expect(res.filter((r) => r.elimine).map((r) => r.ticker).sort()).toEqual(['ARE', 'TFII']);
+    expect(profil('onesheet').justification.length).toBeGreaterThan(0);
   });
   it('le score est la moyenne pondérée et la confiance suit les données', () => {
     const e = { T: { ticker: 'T', nom: 'T', champs: { roic: { valeur: 0.13, source: 't', date: '' } } } };
@@ -210,8 +219,8 @@ describe('sous-compagnies (entreprises achetées)', () => {
   });
   it('les estimations restent identifiées comme peu fiables', () => {
     const v = achats.verdict();
-    expect(v.total).toBe(9);
-    expect(v.reussis).toBe(2);
+    expect(v.total).toBe(10); // 9 avant les comptes de Hulley & Kirkwood (Companies House)
+    expect(v.reussis).toBe(4); // 2 sur 9 avant les chiffres S&P Capital IQ (employés d'Altera, Synchronoss, Optimal Blue)
     expect(v.niveau).toBe('rouge');
     expect(achats.estimations('TOI')).toHaveLength(0);
   });

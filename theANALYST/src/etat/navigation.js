@@ -1,5 +1,5 @@
 /**
- * navigation.js : petit routeur par ancre (#/profil, #/classement, #/entreprise/CSU, #/hall...), sans dépendance.
+ * navigation.js : petit routeur par ancre (#/profil, #/classement, #/entreprise/CSU, #/crise...), sans dépendance.
  */
 import { useEffect, useState } from 'react';
 

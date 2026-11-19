@@ -1,6 +1,6 @@
 /**
  * App.jsx : coquille du site. Barre du haut, page courante, pied de page et assistant sur toutes les pages.
- * Tant que le profil n'est pas créé (bouton « Entrer »), seule la page de profil est accessible.
+ * Tant que le profil n'est pas créé (bouton « Entrer »), seules la page de profil et la méthodologie sont accessibles.
  */
 import { FournisseurProfil, useProfil } from './etat/ProfilContext.jsx';
 import { useRoute } from './etat/navigation.js';
@@ -11,17 +11,21 @@ import BulleAssistant from './components/assistant/BulleAssistant.jsx';
 import PageProfil from './pages/PageProfil.jsx';
 import PageClassement from './pages/PageClassement.jsx';
 import PageEntreprise from './pages/PageEntreprise.jsx';
-import PageComparer from './pages/PageComparer.jsx';
-import PageHall from './pages/PageHall.jsx';
 import PageMethode from './pages/PageMethode.jsx';
+import PageSimulation from './pages/PageSimulation.jsx';
+import PageHall from './pages/PageHall.jsx';
+import PageConclusion from './pages/PageConclusion.jsx';
 
-const PAGES = { profil: PageProfil, classement: PageClassement, comparer: PageComparer, hall: PageHall, methode: PageMethode };
+// « crise » : ancienne adresse du test de crise, qui fait maintenant partie de la simulation.
+const PAGES = { profil: PageProfil, classement: PageClassement, hall: PageHall, methode: PageMethode, simulation: PageSimulation, conclusion: PageConclusion, crise: PageSimulation };
+const LIBRES = ['profil', 'methode'];
 
 function Site() {
   const { pret, entre } = useProfil();
   const route = useRoute();
   const [langue, basculerLangue] = useLangue();
-  const page = !entre || !(route.page in PAGES || route.page === 'entreprise') ? 'profil' : route.page;
+  const connue = route.page in PAGES || route.page === 'entreprise';
+  const page = !connue || (!entre && !LIBRES.includes(route.page)) ? 'profil' : route.page;
   const Page = PAGES[page];
   return (
     <>

@@ -1,6 +1,6 @@
 import { useProfil } from '../etat/ProfilContext.jsx';
 import { MENTION, PROFILS, CRITERES } from '../lib/pointage.js';
-import { CATEGORIES, DEFINITIONS } from '../lib/ratios.js';
+import { CATEGORIES, DEFINITIONS, DEFS } from '../lib/ratios.js';
 import { formater } from '../lib/format.js';
 import Repliable from '../components/commun/Repliable.jsx';
 
@@ -44,12 +44,13 @@ export default function PageMethode() {
       <Repliable titre="Profils d’investisseur">
         <div className="defilement">
           <table className="donnees">
-            <thead><tr><th>Profil</th>{CRITERES.map((c) => <th key={c.id}>{c.nom}</th>)}<th>Filtres</th></tr></thead>
+            <thead><tr><th>Profil</th>{CRITERES.map((c) => <th key={c.id}>{c.nom}</th>)}<th>Autres ratios</th><th>Filtres</th></tr></thead>
             <tbody>
               {PROFILS.map((p) => (
                 <tr key={p.id}>
                   <td><b>{p.nom}</b>{p.inspire && <span className="discret petit"> ({MENTION})</span>}<br /><span className="discret petit">{p.description}</span></td>
                   {CRITERES.map((c) => <td key={c.id}>{p.poids[c.id]} %</td>)}
+                  <td className="petit">{Object.entries(p.poids).filter(([id, v]) => v > 0 && !CRITERES.some((c) => c.id === id)).map(([id, v]) => `${DEFS[id]?.nom || id} ${v} %`).join(', ') || '–'}</td>
                   <td className="petit">{(p.filtres || []).map((f) => config.filtres[f].nom).join(', ') || '–'}</td>
                 </tr>
               ))}

@@ -16,6 +16,10 @@ import Repliable from '../components/commun/Repliable.jsx';
 import Source from '../components/commun/Source.jsx';
 import Barre from '../components/commun/Barre.jsx';
 import SousCompagnies from '../components/fiche/SousCompagnies.jsx';
+import ParRapportAuxPairs from '../components/fiche/ParRapportAuxPairs.jsx';
+import { groupeDe } from '../lib/pairs.js';
+import { ResumeCrise } from '../components/commun/ResumeCrise.jsx';
+import { CANDIDATS } from '../lib/crises.js';
 import { DONNEES as ACHATS } from '../lib/acquisitions.js';
 
 /** Explorateur d'origine du site : graphique interactif et tableau complet des périodes. */
@@ -74,7 +78,7 @@ export default function PageEntreprise({ ticker }) {
               <div>{r.elimine ? <span className="pastille non">Éliminé : {r.raisons.join(' ; ')}</span> : <span className="pastille ok">Admissible</span>}
                 <span className="pastille" style={{ marginLeft: 6 }}>confiance {Math.round(r.confiance * 100)} %</span></div>
             </div>
-            {dirigeant && <div className="petit" style={{ textAlign: 'right' }}><b>{dirigeant.nom}</b><br /><span className="discret">{dirigeant.titre}</span><br /><a href="#/hall">Voir au Hall des dirigeants</a></div>}
+            {dirigeant && <div className="petit" style={{ textAlign: 'right' }}><b>{dirigeant.nom}</b><br /><span className="discret">{dirigeant.titre}</span></div>}
           </div>
         </section>
         <section className="carte">
@@ -97,9 +101,30 @@ export default function PageEntreprise({ ticker }) {
           </div>
         ))}
       </div>
-      <div className="app-container"><KpiGrid kpis={kpis} /></div>
+      <Repliable titre={`1. Acquisitions : entreprises achetées (${(ACHATS.LISTES[ticker] || []).length})`}>
+        <SousCompagnies ticker={ticker} devise={e.deviseRapport} />
+      </Repliable>
 
-      <Repliable titre="Voir plus de données">
+      {(groupeDe(ticker) || CANDIDATS.includes(ticker)) && (
+        <Repliable titre="2. Face aux pairs et en crise">
+          {groupeDe(ticker) && (
+            <>
+              <h3 className="lime">{`Par rapport aux pairs (${groupeDe(ticker).nom.toLowerCase()})`}</h3>
+              <ParRapportAuxPairs ticker={ticker} />
+            </>
+          )}
+          {CANDIDATS.includes(ticker) && (
+            <>
+              <h3 className="lime" style={{ marginTop: '1.2rem' }}>Test de crise (simulation)</h3>
+              <ResumeCrise ticker={ticker} />
+            </>
+          )}
+        </Repliable>
+      )}
+
+      <Repliable titre="3. Données détaillées et graphiques">
+        <h3 className="lime">Dernier trimestre</h3>
+        <div className="app-container" style={{ marginBottom: '1rem' }}><KpiGrid kpis={kpis} /></div>
         {sections.map((s) => (
           <div key={s.titre} style={{ marginBottom: '1rem' }}>
             <h3 className="lime">{s.titre}</h3>
@@ -121,13 +146,16 @@ export default function PageEntreprise({ ticker }) {
           </div>
         ))}
         <p className="discret petit">Montants en dollars canadiens (1 USD = {fr(config.taux_change.USD, 2)} CAD, 1 EUR = {fr(config.taux_change.EUR, 2)} CAD). « n. d. » : la donnée n’est pas dans les sources.</p>
+        <h3 className="lime" style={{ marginTop: '1.2rem' }}>Graphiques financiers</h3>
+        {graphiques.map((g) => <Graphique key={g.titre} graphique={g} />)}
+        <div className="app-container" style={{ marginTop: '1rem' }}>
+          <h3 className="lime">Explorateur des résultats</h3>
+          <Explorateur entreprise={e} />
+        </div>
       </Repliable>
 
-      <Repliable titre={`Sous-compagnies : entreprises achetées (${(ACHATS.LISTES[ticker] || []).length})`}>
-        <SousCompagnies ticker={ticker} devise={e.deviseRapport} />
-      </Repliable>
-
-      <Repliable titre="Fiche qualitative">
+      <Repliable titre={`4. Qualitatif et événements récents (${e.evenements.length})`}>
+        <h3 className="lime">Fiche qualitative</h3>
         <p className="discret petit">Fiche informative : elle ne compte pas dans le pointage. Chaque note est calculée par une règle à partir des données du site ; ce n’est pas un jugement d’analyste.</p>
         <table className="donnees">
           <tbody>
@@ -142,17 +170,7 @@ export default function PageEntreprise({ ticker }) {
             ))}
           </tbody>
         </table>
-      </Repliable>
-
-      <Repliable titre="Voir les graphiques financiers">
-        {graphiques.map((g) => <Graphique key={g.titre} graphique={g} />)}
-        <div className="app-container" style={{ marginTop: '1rem' }}>
-          <h3 className="lime">Explorateur des résultats</h3>
-          <Explorateur entreprise={e} />
-        </div>
-      </Repliable>
-
-      <Repliable titre={`Événements récents (${e.evenements.length})`}>
+        <h3 className="lime" style={{ marginTop: '1.2rem' }}>Événements récents</h3>
         <div className="rangee" style={{ marginBottom: '0.7rem' }}>
           {types.map((t) => (
             <label key={t} className="case">

@@ -56,9 +56,10 @@
  "repartition": {
   "_commentaire": "Valeurs de départ de la section Répartition du portefeuille (modifiables à l'écran).",
   "methode": "pointage",
-  "max_titres": 5,
-  "score_minimum": 50,
-  "plafond": 0.4
+  "max_titres": 3,
+  "score_minimum": 40,
+  "plafond": 0.4,
+  "montant": "100 000"
  },
  "unites_etats_financiers": {
   "_commentaire": "Unité des états financiers de chaque acquéreur, utilisée seulement quand un dépôt donne un prix sans unité. Par défaut : millions.",

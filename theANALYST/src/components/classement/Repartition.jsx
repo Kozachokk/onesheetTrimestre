@@ -12,15 +12,14 @@ const COULEURS = ['#69db7c', '#c9f26c', '#7fb8b8', '#3f8f7a', '#a9c98a'];
 export default function Repartition() {
   const { config, resultats, entreprises } = useProfil();
   const defauts = config.repartition;
-  const [methode, setMethode] = useState(defauts.methode);
   const [maxTitres, setMaxTitres] = useState(defauts.max_titres);
   const [scoreMinimum, setScoreMinimum] = useState(defauts.score_minimum);
   const [plafond, setPlafond] = useState(defauts.plafond * 100);
-  const [montant, setMontant] = useState('');
+  const [montant, setMontant] = useState(defauts.montant ?? '');
 
   const { lignes, exclus, plafondApplique } = useMemo(
-    () => repartir(resultats, { methode, maxTitres, scoreMinimum, plafond: plafond / 100 }),
-    [resultats, methode, maxTitres, scoreMinimum, plafond],
+    () => repartir(resultats, { methode: 'pointage', maxTitres, scoreMinimum, plafond: plafond / 100 }),
+    [resultats, maxTitres, scoreMinimum, plafond],
   );
   const valeur = Number(String(montant).replace(/\s/g, '').replace(',', '.'));
   const avecMontant = Number.isFinite(valeur) && valeur > 0;
@@ -35,17 +34,11 @@ export default function Repartition() {
         <span className="pastille">{`total : ${lignes.reduce((s, l) => s + l.pct, 0)} %`}</span>
       </div>
       <p className="discret petit" style={{ margin: '0.4rem 0 0.8rem' }}>
-        Combien mettre sur chaque titre pour un total de 100 %, selon ton profil. C’est une règle de calcul appliquée au classement,
+        Combien mettre sur chaque titre pour un total de 100 %, selon le pointage de ton profil : plus un titre est bien noté, plus sa part est grande. C’est une règle de calcul appliquée au classement,
         pas une recommandation de placement.
       </p>
 
       <div className="grille" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', marginBottom: '0.9rem' }}>
-        <label className="petit discret">Méthode
-          <select value={methode} onChange={(e) => setMethode(e.target.value)}>
-            <option value="pointage">Selon le pointage</option>
-            <option value="egale">Parts égales</option>
-          </select>
-        </label>
         <label className="petit discret">Nombre de titres maximum : <b className="accent">{maxTitres}</b>
           <input type="range" min="1" max="5" step="1" value={maxTitres} style={{ '--part': `${((maxTitres - 1) / 4) * 100}%` }}
             onChange={(e) => setMaxTitres(Number(e.target.value))} />
@@ -109,11 +102,37 @@ export default function Repartition() {
         <p className="discret petit">{`Sans part : ${exclus.map((x) => `${x.ticker} (${x.raison})`).join(', ')}.`}</p>
       )}
       <details className="repli" style={{ background: 'var(--carte-2)' }}>
+        <summary>Quels réglages choisir ?</summary>
+        <div className="contenu petit">
+          <p style={{ marginTop: 0 }}>Ces réglages viennent de l’outil d’origine de l’équipe (la répartition du portefeuille, sous le classement).
+            Le projet d’Onesheet n’en impose aucun directement, parce que ce n’est pas nous qui choisissons les poids dans l’indice. Voici ce qui correspond le mieux aux règles :</p>
+          <div className="defilement">
+            <table className="donnees">
+              <thead><tr><th>Réglage</th><th>Ce qu’il fait dans l’outil</th><th>Ce que dit le projet</th><th>Valeur conseillée</th></tr></thead>
+              <tbody>
+                <tr><td><b>Nombre de titres maximum</b></td><td>Garde les N titres les mieux classés</td><td>1 à 5 titres par proposition</td>
+                  <td>3 (valeur par défaut) : avec les profils Mark Leonard, Peter Lynch ou Warren Buffett, ce sont Topicus, WSP et CSU, puis le test de crise écarte Topicus (notre choix final : WSP et CSU). 5 si tu veux montrer tous les candidats.</td></tr>
+                <tr><td><b>Pointage minimum</b></td><td>Écarte les titres sous ce score (sur 100)</td><td>Aucune règle</td>
+                  <td>40 (valeur par défaut) : assez bas pour garder les 3 meilleurs titres de la plupart des profils. Sous 50, un titre répond à moins de la moitié des critères du profil.</td></tr>
+                <tr><td><b>Maximum par titre</b></td><td>Plafond de chaque titre dans ton portefeuille</td><td>Plafond de 10 % dans l’indice entier, ce qui n’est pas la même chose</td>
+                  <td>Avec 2 titres, l’outil monte forcément à 50 %, car 2 × 40 % ne fait pas 100 %. Laisse 40 % si tu montres 3 titres ou plus.</td></tr>
+                <tr><td><b>Montant à investir</b></td><td>Convertit les pourcentages en dollars et en actions entières</td>
+                  <td>Onesheet investit son propre argent : le budget de chaque équipe est le cash de l’indice au-dessus du plancher de 2 %, divisé par 3. Le montant n’est pas publié.</td>
+                  <td>100 000 $ par défaut, comme exemple pour la démo. Tu peux vider la case.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style={{ marginBottom: 0 }}><b>À noter :</b> cet outil classe les titres selon le profil d’investisseur choisi (Buffett, Graham…), pas selon le test de crise.
+            Aucun profil ne met WSP et CSU seuls aux 2 premières places : Topicus, TFI ou Aecon s’y glissent selon le profil. Le classement mesure la qualité ;
+            le test de crise vient ensuite filtrer les titres et écarte Topicus, TFI et Aecon (voir la page Simulation).</p>
+        </div>
+      </details>
+      <details className="repli" style={{ background: 'var(--carte-2)' }}>
         <summary>Comment la répartition est calculée</summary>
         <div className="contenu petit">
           <ol style={{ margin: 0, paddingLeft: '1.1rem', lineHeight: 1.7 }}>
             <li>On garde les titres admissibles (non éliminés) dont le pointage atteint le minimum, puis les meilleurs, jusqu’au nombre maximum.</li>
-            <li>« Selon le pointage » : chaque titre reçoit une part proportionnelle à son pointage. « Parts égales » : tous reçoivent la même part.</li>
+            <li>Chaque titre reçoit une part proportionnelle à son pointage.</li>
             <li>Aucun titre ne dépasse le maximum par titre ; l’excédent est redistribué aux autres, au prorata. S’il y a trop peu de titres pour le respecter, on ajoute les meilleurs titres admissibles suivants, même sous le pointage minimum (pastille « ajouté pour le maximum »).
               {plafondApplique > plafond / 100 + 1e-9 && ` Avec ${lignes.length} titre(s), le maximum est relevé à ${Math.round(plafondApplique * 100)} % pour atteindre 100 %.`}</li>
             <li>Les parts sont arrondies à l’unité en gardant un total d’exactement 100 %.</li>
